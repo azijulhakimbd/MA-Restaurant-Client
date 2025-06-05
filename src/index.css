@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Varta:wght@300..700&display=swap");
 @import "tailwindcss";
 @plugin "daisyui";
-
+.varta {
+  font-family: "Varta", sans-serif;
+}
 active {
-    background-color: blueviolet;
+  background-color: blueviolet;
 }
