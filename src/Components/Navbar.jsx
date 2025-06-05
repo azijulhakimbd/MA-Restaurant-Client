@@ -4,18 +4,31 @@ import { AuthContext } from "../Context/AuthProvider";
 import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
-  const {user}=use(AuthContext)
-  const links=
+  const { user, logOut } = use(AuthContext);
+  const links = (
     <>
-     <li><NavLink className="text-black font-extrabold" to={'/'}>Home</NavLink></li>
-     <li><NavLink className="text-black font-extrabold" to={'/allfoods'}>All Foods</NavLink></li>
-     <li><NavLink className="text-black font-extrabold" to={'gallery'}>Gallery</NavLink></li>
-     
-      </>
-     
-      
-    
-  
+      <li>
+        <NavLink className="text-black font-extrabold" to={"/"}>
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className="text-black font-extrabold" to={"/allfoods"}>
+          All Foods
+        </NavLink>
+      </li>
+      <li>
+        <NavLink className="text-black font-extrabold" to={"gallery"}>
+          Gallery
+        </NavLink>
+      </li>
+    </>
+  );
+
+  const handleLogout = () => {
+    logOut();
+  };
+
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -45,21 +58,26 @@ const Navbar = () => {
           </ul>
         </div>
         <a className="btn btn-ghost text-4xl f1 text-green-500 font-extrabold">
-          <img src="https://i.postimg.cc/3NbX17Vz/logo-restaurant.png" className="w-30 bg-yellow-300 rounded-3xl" alt="MA Restaurant" />
+          <img
+            src="https://i.postimg.cc/3NbX17Vz/logo-restaurant.png"
+            className="w-30 bg-yellow-300 rounded-3xl"
+            alt="MA Restaurant"
+          />
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal light:text-black dark:text-yellow-400 px-1">{links}</ul>
+        <ul className="menu menu-horizontal light:text-black dark:text-yellow-400 px-1">
+          {links}
+        </ul>
       </div>
       <div className="navbar-end">
         <ThemeToggle></ThemeToggle>
         {user ? (
-          <button  className="btn bg-red-400">
+          <button onClick={handleLogout} className="btn bg-red-400">
             Logout
           </button>
         ) : (
           <>
-           
             <Link className="btn bg-yellow-300 text-black" to={"/login"}>
               Login
             </Link>
