@@ -5,6 +5,9 @@ import { Component } from "react";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
 import NotFound from "../Pages/NotFound";
+import PrivateRoutes from "./PrivateRoutes";
+import AddFood from "../Pages/Dashboard/AddFood";
+import AllFoods from "../Pages/AllFoods/AllFoods";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -22,6 +25,16 @@ export const router = createBrowserRouter([
         path: "/register",
         Component: Register,
       },
+      {
+        path:'/AddFood',
+        element: <PrivateRoutes>
+          <AddFood></AddFood>
+        </PrivateRoutes>
+      },
+      {
+        path:'/AllFoods',
+        Component: AllFoods
+      }
     ]
   },
   {

@@ -26,7 +26,7 @@ const UserProfile = () => {
           <Link>My Foods</Link>
         </li>
         <li>
-          <Link>Add food</Link>
+          <Link to={'/AddFood'}>Add food</Link>
         </li>
         <li>
           <Link>My Orders</Link>
