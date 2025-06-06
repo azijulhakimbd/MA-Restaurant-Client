@@ -19,7 +19,7 @@ const ThemeToggle = () => {
 
   return (
     <button
-      className="btn border rounded-full text-yellow-300"
+      className="btn btn-ghost border rounded-full text-yellow-300"
       onClick={toggleTheme}
     >
       {theme === "light" ? <MdDarkMode size={30} /> : <MdLightMode size={30} />}

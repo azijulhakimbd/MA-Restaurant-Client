@@ -1,30 +1,40 @@
 import React, { use } from "react";
 import { Link, NavLink } from "react-router";
-import { AuthContext } from "../Context/AuthProvider";
+
 import ThemeToggle from "./ThemeToggle";
+import UserProfile from "./UserProfile";
+import { AuthContext } from "../Context/AuthContext";
 
 const Navbar = () => {
   const { user, logOut } = use(AuthContext);
   const links = (
     <>
       <li>
-        <NavLink className="text-black font-extrabold" to={"/"}>
+        <NavLink
+          className="text-yellow-500 border-double border mx-2 font-extrabold"
+          to={"/"}
+        >
           Home
         </NavLink>
       </li>
       <li>
-        <NavLink className="text-black font-extrabold" to={"/allfoods"}>
+        <NavLink
+          className="text-yellow-500 border-double border mx-2 font-extrabold"
+          to={"/allfoods"}
+        >
           All Foods
         </NavLink>
       </li>
       <li>
-        <NavLink className="text-black font-extrabold" to={"gallery"}>
+        <NavLink
+          className="text-yellow-500 border-double border mx-2 font-extrabold"
+          to={"gallery"}
+        >
           Gallery
         </NavLink>
       </li>
     </>
   );
-
   const handleLogout = () => {
     logOut();
   };
@@ -52,7 +62,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 text-success mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 text-yellow-500 border outline-1 mt-3 w-52 p-2 shadow"
           >
             {links}
           </ul>
@@ -66,16 +76,18 @@ const Navbar = () => {
         </a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal light:text-black dark:text-yellow-400 px-1">
-          {links}
-        </ul>
+        <ul className="menu menu-horizontal text-yellow-400 px-1">{links}</ul>
       </div>
       <div className="navbar-end">
         <ThemeToggle></ThemeToggle>
+
         {user ? (
-          <button onClick={handleLogout} className="btn bg-red-400">
-            Logout
-          </button>
+          <>
+            <UserProfile></UserProfile>
+            <button onClick={handleLogout} className="btn bg-red-400">
+              Logout
+            </button>
+          </>
         ) : (
           <>
             <Link className="btn bg-yellow-300 text-black" to={"/login"}>
