@@ -8,6 +8,7 @@ import NotFound from "../Pages/NotFound";
 import PrivateRoutes from "./PrivateRoutes";
 import AddFood from "../Pages/Dashboard/AddFood";
 import AllFoods from "../Pages/AllFoods/AllFoods";
+import MyFoods from "../Pages/Dashboard/MyFoods";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -34,6 +35,12 @@ export const router = createBrowserRouter([
       {
         path:'/AllFoods',
         Component: AllFoods
+      },
+      {
+        path:'/MyFoods',
+        element: <PrivateRoutes>
+          <MyFoods></MyFoods>
+        </PrivateRoutes>
       }
     ]
   },
