@@ -1,14 +1,16 @@
 import React, { useContext, useState } from "react";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router"; 
-import toast, { Toaster } from "react-hot-toast";
+import { Link } from "react-router";
+
 import { AuthContext } from "../../Context/AuthContext";
-import { auth } from "../../Firebase/firebase.config"; 
+import { auth } from "../../Firebase/firebase.config";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [active, setActive] = useState(false);
-  const { createUser, googleLogin, userUpdate, setUser } = useContext(AuthContext);
+  const { createUser, googleLogin, userUpdate, setUser } =
+    useContext(AuthContext);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -26,7 +28,9 @@ const Register = () => {
 
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
     if (!passwordRegex.test(password)) {
-      toast.error("Password must have 1 uppercase, 1 lowercase and be at least 6 characters long");
+      toast.error(
+        "Password must have 1 uppercase, 1 lowercase and be at least 6 characters long"
+      );
       return;
     }
 
@@ -56,7 +60,6 @@ const Register = () => {
 
   return (
     <div>
-      <Toaster />
       <main className="w-full min-h-screen bg-base-300 flex items-center justify-center p-6 sm:py-12">
         <form
           onSubmit={handleRegister}
@@ -115,8 +118,13 @@ const Register = () => {
             <input type="checkbox" name="checkbox" id="checkbox" />{" "}
             <label htmlFor="checkbox">
               By clicking, I agree to{" "}
-              <a href="#" className="text-blue-500">Terms</a> and{" "}
-              <a href="#" className="text-blue-500">Privacy</a>
+              <a href="#" className="text-blue-500">
+                Terms
+              </a>{" "}
+              and{" "}
+              <a href="#" className="text-blue-500">
+                Privacy
+              </a>
             </label>
           </div>
 
@@ -126,7 +134,9 @@ const Register = () => {
 
           <div className="text-center text-sm">
             Already have an account?{" "}
-            <Link to="/login" className="text-blue-500">Log in</Link>
+            <Link to="/login" className="text-blue-500">
+              Log in
+            </Link>
           </div>
 
           <div className="flex items-center gap-3">

@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import axios from "axios";
-import { toast } from "react-hot-toast";
 
 import { AuthContext } from "../../Context/AuthContext";
+import { toast } from "react-toastify";
 
 const AddFood = () => {
   const { user } = useContext(AuthContext);

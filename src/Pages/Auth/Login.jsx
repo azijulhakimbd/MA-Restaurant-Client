@@ -3,9 +3,8 @@ import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate, useLocation } from "react-router";
 
-import toast, { Toaster } from "react-hot-toast";
 import { AuthContext } from "../../Context/AuthContext";
-
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -42,7 +41,6 @@ const Login = () => {
   return (
     <div>
       <div className="min-h-screen bg-base-300 flex items-center justify-center p-6">
-        <Toaster />
         <form
           onSubmit={handleLogin}
           className="w-full sm:w-[500px] bg-base-200 rounded-lg p-8 flex flex-col gap-5 shadow-md"
