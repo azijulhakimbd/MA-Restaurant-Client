@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router";
+import { Link } from "react-router"; 
 
 import { AuthContext } from "../../Context/AuthContext";
 import { auth } from "../../Firebase/firebase.config";
@@ -9,43 +9,52 @@ import { toast } from "react-toastify";
 
 const Register = () => {
   const [active, setActive] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { createUser, googleLogin, userUpdate, setUser } =
     useContext(AuthContext);
 
   const handleRegister = async (e) => {
     e.preventDefault();
     const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const photoURL = form.photoURL.value;
-    const password = form.password.value;
-    const termsAccepted = form.checkbox.checked;
+    const { name, email, photoURL, password, checkbox } = form.elements;
 
-    if (!termsAccepted) {
+    if (!checkbox.checked) {
       toast.error("You must accept the Terms and Privacy Policy.");
       return;
     }
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-    if (!passwordRegex.test(password)) {
+    //  Password Validation
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/;
+    if (!passwordRegex.test(password.value)) {
       toast.error(
-        "Password must have 1 uppercase, 1 lowercase and be at least 6 characters long"
+        "Password must be at least 6 characters, include uppercase, lowercase, number, and special character."
       );
       return;
     }
 
     try {
-      const result = await createUser(email, password);
-      await userUpdate({ displayName: name, photoURL });
+      setLoading(true);
+      toast.dismiss();
 
-      //  Fetch updated user from Firebase
-      const updatedUser = auth.currentUser;
-      setUser(updatedUser);
+      const result = await createUser(email.value, password.value);
+      await userUpdate({
+        displayName: name.value,
+        photoURL: photoURL.value,
+      });
+
+      setUser(auth.currentUser);
 
       toast.success("Registration successful!");
       form.reset();
     } catch (error) {
-      toast.error(error.message || "Registration failed");
+      if (error.code === "auth/email-already-in-use") {
+        toast.error("Email is already in use.");
+      } else {
+        toast.error(error.message || "Registration failed");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -114,22 +123,19 @@ const Register = () => {
             )}
           </div>
 
-          <div className="text-sm">
-            <input type="checkbox" name="checkbox" id="checkbox" />{" "}
-            <label htmlFor="checkbox">
-              By clicking, I agree to{" "}
-              <a href="#" className="text-blue-500">
-                Terms
-              </a>{" "}
-              and{" "}
-              <a href="#" className="text-blue-500">
-                Privacy
-              </a>
-            </label>
-          </div>
+          <label className="flex items-center gap-2 text-sm">
+            <input type="checkbox" name="checkbox" /> I agree to{" "}
+            <a href="#" className="text-blue-500">
+              Terms
+            </a>{" "}
+            and{" "}
+            <a href="#" className="text-blue-500">
+              Privacy
+            </a>
+          </label>
 
-          <button type="submit" className="btn btn-primary w-full">
-            Register
+          <button type="submit" className="btn btn-primary w-full" disabled={loading}>
+            {loading ? "Registering..." : "Register"}
           </button>
 
           <div className="text-center text-sm">
