@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { auth } from "../Firebase/firebase.config";
 import {
   createUserWithEmailAndPassword,
@@ -48,7 +48,7 @@ const AuthProvider = ({ children }) => {
     }
 
   // Observe user state
-  React.useEffect(() => {
+  useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
