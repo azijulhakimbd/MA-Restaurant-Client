@@ -12,7 +12,7 @@ const MyFoods = () => {
 
   // Load foods added by current user
   useEffect(() => {
-    if (user?.email) {
+    if (user.email) {
       fetch(`http://localhost:3000/foods?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => {
@@ -61,7 +61,9 @@ const MyFoods = () => {
       <h2 className="text-3xl font-bold mb-6 text-center">My Foods</h2>
 
       {myFoods.length === 0 ? (
-        <p className="text-center text-gray-600">You haven’t added any foods yet.</p>
+        <p className="text-center text-gray-600">
+          You haven’t added any foods yet.
+        </p>
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
