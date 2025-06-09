@@ -9,6 +9,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import AddFood from "../Pages/Dashboard/AddFood";
 import AllFoods from "../Pages/AllFoods/AllFoods";
 import MyFoods from "../Pages/Dashboard/MyFoods";
+import Gallery from "../Pages/Gallery/Gallery";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -42,6 +43,10 @@ export const router = createBrowserRouter([
         element: <PrivateRoutes>
           <MyFoods></MyFoods>
         </PrivateRoutes>
+      },
+      {
+        path:'/Gallery',
+        Component: Gallery
       }
     ]
   },
