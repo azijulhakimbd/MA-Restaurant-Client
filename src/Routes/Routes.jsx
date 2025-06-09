@@ -10,6 +10,7 @@ import AddFood from "../Pages/Dashboard/AddFood";
 import AllFoods from "../Pages/AllFoods/AllFoods";
 import MyFoods from "../Pages/Dashboard/MyFoods";
 import Gallery from "../Pages/Gallery/Gallery";
+import SingleFood from "../Pages/AllFoods/SingleFood";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -28,30 +29,40 @@ export const router = createBrowserRouter([
         Component: Register,
       },
       {
-        path:'/AddFood',
-        element: <PrivateRoutes>
-          <AddFood></AddFood>
-        </PrivateRoutes>
+        path: "/AddFood",
+        element: (
+          <PrivateRoutes>
+            <AddFood></AddFood>
+          </PrivateRoutes>
+        ),
       },
       {
-        path:'/AllFoods',
-        Component: AllFoods
+        path: "/AllFoods",
+        Component: AllFoods,
       },
       {
-        path:'/MyFoods',
-        loader:()=>fetch('http://localhost:3000/foods'),
-        element: <PrivateRoutes>
-          <MyFoods></MyFoods>
-        </PrivateRoutes>
+        path: "/foods/:id",
+        Component: SingleFood,
+        loader:({params})=>fetch(`http://localhost:3000/foods/${params.id}`)
+      },
+
+      {
+        path: "/MyFoods",
+        loader: () => fetch("http://localhost:3000/foods"),
+        element: (
+          <PrivateRoutes>
+            <MyFoods></MyFoods>
+          </PrivateRoutes>
+        ),
       },
       {
-        path:'/Gallery',
-        Component: Gallery
-      }
-    ]
+        path: "/Gallery",
+        Component: Gallery,
+      },
+    ],
   },
   {
-    path:'/*',
-    Component:NotFound
-  }
+    path: "/*",
+    Component: NotFound,
+  },
 ]);

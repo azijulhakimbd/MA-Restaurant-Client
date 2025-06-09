@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import FoodCard from "../../Components/FoodCard";
+import { Link } from "react-router";
 
 
 const AllFoods = () => {
@@ -48,6 +49,7 @@ const AllFoods = () => {
           filteredFoods.map((food) => <FoodCard key={food._id} food={food} />)
         )}
       </div>
+      
     </div>
   );
 };
