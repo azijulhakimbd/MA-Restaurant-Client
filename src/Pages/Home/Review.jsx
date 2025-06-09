@@ -1,5 +1,7 @@
 import { FaStar } from 'react-icons/fa';
 import { Typewriter } from 'react-simple-typewriter';
+import Lottie from 'lottie-react';
+import reviewAnimation from '../../assets/Lottie/Reviews.json';
 
 const reviews = [
   {
@@ -22,21 +24,27 @@ const reviews = [
   },
 ];
 
-const Reviews=()=> {
+const Reviews = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
-      <h2 className="text-4xl font-bold text-yellow-500 text-center mb-10">
-        <span>
-                      <Typewriter
-                        cursor
-                        cursorBlinking
-                        delaySpeed={1000}
-                        deleteSpeed={25}
-                        loop={0}
-                        typeSpeed={75}
-                        words={["What Our Customers Say"]}
-                      />
-                    </span></h2>
+      <div className="flex flex-col items-center mb-10">
+        <div className="w-32 mb-4">
+          <Lottie animationData={reviewAnimation} loop={true} />
+        </div>
+        <h2 className="text-4xl font-bold text-yellow-500 text-center">
+          <span>
+            <Typewriter
+              cursor
+              cursorBlinking
+              delaySpeed={1000}
+              deleteSpeed={25}
+              loop={0}
+              typeSpeed={75}
+              words={['What Our Customers Say']}
+            />
+          </span>
+        </h2>
+      </div>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {reviews.map((review, index) => (
           <div key={index} className="card shadow-lg bg-base-100 p-4">
@@ -61,5 +69,6 @@ const Reviews=()=> {
       </div>
     </div>
   );
-}
+};
+
 export default Reviews;

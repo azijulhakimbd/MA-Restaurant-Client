@@ -1,5 +1,7 @@
 import { useForm, ValidationError } from "@formspree/react";
 import { Typewriter } from "react-simple-typewriter";
+import Lottie from "lottie-react";
+import newsletterAnimation from "../../assets/Lottie/Newsletter.json";  
 
 const NewsletterSubscribe = () => {
   const [state, handleSubmit] = useForm("xgvyakpz");
@@ -37,7 +39,10 @@ const NewsletterSubscribe = () => {
       {/* Overlay & Form */}
       <div className="absolute inset-0 bg-black/60 flex items-center justify-center z-10">
         <div className="text-center max-w-xl w-full px-6">
-          <h1 className="text-5xl text-yellow-500  font-semibold mb-6">
+          <div className="w-40 mx-auto mb-4">
+            <Lottie animationData={newsletterAnimation} loop={true} />
+          </div>
+          <h1 className="text-5xl text-yellow-500 font-semibold mb-6">
             <span>
               <Typewriter
                 cursor

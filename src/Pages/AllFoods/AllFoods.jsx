@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import FoodCard from "../../Components/FoodCard";
-import { Link } from "react-router";
+
 
 
 const AllFoods = () => {
@@ -20,6 +20,7 @@ const AllFoods = () => {
       food.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       food.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
 
   return (
     <div className="min-h-screen bg-base-100 dark:bg-gray-900 transition-colors duration-500">
