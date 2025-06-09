@@ -18,11 +18,11 @@ const SingleFood = () => {
   return (
     <div className="container mx-auto px-4 py-10 min-h-screen">
       <div className="card lg:card-side bg-base-100 shadow-xl">
-        <figure className="w-full lg:w-1/2">
+        <figure className="w-200 h-150">
           <img
-            src={image || "/placeholder.jpg"}
+            src={image}
             alt={name}
-            className="object-cover h-full w-full"
+            className="w-200 h-150"
           />
         </figure>
         <div className="card-body w-full lg:w-1/2">
