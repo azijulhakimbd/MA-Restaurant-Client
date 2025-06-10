@@ -10,7 +10,7 @@ import AddFood from "../Pages/Dashboard/AddFood";
 import AllFoods from "../Pages/AllFoods/AllFoods";
 import MyFoods from "../Pages/Dashboard/MyFoods";
 import Gallery from "../Pages/Gallery/Gallery";
-import SingleFood from "../Pages/AllFoods/SingleFood";
+import FoodDetails from "../Pages/Food/FoodDetails";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/foods/:id",
-        Component: SingleFood,
+        Component: FoodDetails,
         loader:({params})=>fetch(`http://localhost:3000/foods/${params.id}`)
       },
 
