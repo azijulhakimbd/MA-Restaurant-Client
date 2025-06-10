@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import Root from "../Layout/Root";
 import MainLayout from "../Layout/MainLayout";
-import { Component } from "react";
 import Login from "../Pages/Auth/Login";
 import Register from "../Pages/Auth/Register";
 import NotFound from "../Pages/NotFound";
@@ -12,6 +11,7 @@ import MyFoods from "../Pages/Dashboard/MyFoods";
 import Gallery from "../Pages/Gallery/Gallery";
 import FoodDetails from "../Pages/Food/FoodDetails";
 import UpdateFood from "../Pages/Dashboard/UpdateFood";
+import FoodPurchase from "../Pages/Food/FoodPurchase";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -51,6 +51,12 @@ export const router = createBrowserRouter([
         loader:({params})=>fetch(`http://localhost:3000/foods/${params.id}`),
         element:<PrivateRoutes>
           <UpdateFood></UpdateFood>
+        </PrivateRoutes>
+      },
+      {
+        path:'/food-purchase/',
+        element: <PrivateRoutes>
+          <FoodPurchase></FoodPurchase>
         </PrivateRoutes>
       },
       {

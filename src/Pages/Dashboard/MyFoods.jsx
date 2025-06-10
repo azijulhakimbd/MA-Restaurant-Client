@@ -1,14 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
-import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import Spinner from "../../Components/Spinner";
+import { Link } from "react-router";
 
 const MyFoods = () => {
   const { user } = useContext(AuthContext);
   const [myFoods, setMyFoods] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (user.email) {
@@ -26,38 +25,13 @@ const MyFoods = () => {
     }
   }, [user]);
 
-  const handleDelete = async (id) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete?");
-    if (!confirmDelete) return;
-
-    try {
-      const res = await fetch(`http://localhost:3000/foods/${id}`, {
-        method: "DELETE",
-      });
-      const result = await res.json();
-
-      if (result.deletedCount > 0) {
-        toast.success("Food deleted successfully!");
-        setMyFoods((prev) => prev.filter((item) => item._id !== id));
-      } else {
-        toast.error("Failed to delete the food.");
-      }
-    } catch (err) {
-      console.error(err);
-      toast.error("Something went wrong while deleting.");
-    }
-  };
-
-  const handleUpdate = (id) => {
-    toast.info("Redirecting to update page...");
-    navigate(`/updatefood/${id}`);
-  };
-
   if (loading) return <Spinner />;
 
   return (
     <div className="max-w-6xl mx-auto mt-10 px-4">
-      <h2 className="text-3xl font-bold mb-6 text-center text-base-content">My Foods</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center text-base-content">
+        My Foods
+      </h2>
 
       {myFoods.length === 0 ? (
         <p className="text-center text-gray-600 dark:text-gray-400">
@@ -89,18 +63,11 @@ const MyFoods = () => {
                   <td className="p-4">${food.price}</td>
                   <td className="p-4">{food.quantity}</td>
                   <td className="p-4 flex gap-2">
-                    <button
-                      onClick={() => handleUpdate(food._id)}
-                      className="btn btn-sm btn-info text-white"
-                    >
-                      Update
-                    </button>
-                    <button
-                      onClick={() => handleDelete(food._id)}
-                      className="btn btn-sm btn-error text-white"
-                    >
-                      Delete
-                    </button>
+                    <Link to={`/update-food/${food._id}`}>
+                      <button className="btn btn-sm btn-info text-white">
+                        Update
+                      </button>
+                    </Link>
                   </td>
                 </tr>
               ))}

@@ -10,7 +10,6 @@ const AddFood = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
-
     const newFood = {
       name: form.name.value.trim(),
       image: form.image.value.trim(),
