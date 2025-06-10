@@ -10,7 +10,6 @@ const MyFoods = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Load foods added by current user
   useEffect(() => {
     if (user.email) {
       fetch(`http://localhost:3000/foods?email=${user.email}`)
@@ -28,7 +27,7 @@ const MyFoods = () => {
   }, [user]);
 
   const handleDelete = async (id) => {
-    const confirmDelete = toast.confirm("Are you sure you want to delete?");
+    const confirmDelete = window.confirm("Are you sure you want to delete?");
     if (!confirmDelete) return;
 
     try {
@@ -51,23 +50,23 @@ const MyFoods = () => {
 
   const handleUpdate = (id) => {
     toast.info("Redirecting to update page...");
-    navigate(`/update-food/${id}`);
+    navigate(`/updatefood/${id}`);
   };
 
-  if (loading) return <Spinner></Spinner>;
+  if (loading) return <Spinner />;
 
   return (
     <div className="max-w-6xl mx-auto mt-10 px-4">
-      <h2 className="text-3xl font-bold mb-6 text-center">My Foods</h2>
+      <h2 className="text-3xl font-bold mb-6 text-center text-base-content">My Foods</h2>
 
       {myFoods.length === 0 ? (
-        <p className="text-center text-gray-600">
+        <p className="text-center text-gray-600 dark:text-gray-400">
           You haven’t added any foods yet.
         </p>
       ) : (
         <div className="overflow-x-auto">
-          <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
-            <thead className="bg-gray-100 text-gray-700">
+          <table className="table w-full bg-base-100 rounded-box shadow">
+            <thead className="bg-base-200 text-base-content">
               <tr>
                 <th className="p-4 text-left">Image</th>
                 <th className="p-4 text-left">Name</th>
@@ -78,7 +77,7 @@ const MyFoods = () => {
             </thead>
             <tbody>
               {myFoods.map((food) => (
-                <tr key={food._id} className="border-t">
+                <tr key={food._id} className="border-t border-base-300">
                   <td className="p-4">
                     <img
                       src={food.image}
@@ -92,13 +91,13 @@ const MyFoods = () => {
                   <td className="p-4 flex gap-2">
                     <button
                       onClick={() => handleUpdate(food._id)}
-                      className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700"
+                      className="btn btn-sm btn-info text-white"
                     >
                       Update
                     </button>
                     <button
                       onClick={() => handleDelete(food._id)}
-                      className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700"
+                      className="btn btn-sm btn-error text-white"
                     >
                       Delete
                     </button>
