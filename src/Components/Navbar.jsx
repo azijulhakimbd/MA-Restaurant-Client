@@ -20,7 +20,7 @@ const Navbar = () => {
       <li>
         <NavLink
           className="text-yellow-500 border-double border mx-2 font-extrabold"
-          to={"/allfoods"}
+          to={"/all-foods"}
         >
           All Foods
         </NavLink>

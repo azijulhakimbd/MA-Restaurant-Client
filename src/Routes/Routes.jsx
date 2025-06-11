@@ -12,6 +12,7 @@ import Gallery from "../Pages/Gallery/Gallery";
 import FoodDetails from "../Pages/Food/FoodDetails";
 import UpdateFood from "../Pages/Dashboard/UpdateFood";
 import FoodPurchase from "../Pages/Food/FoodPurchase";
+import MyOrders from "../Pages/Dashboard/MyOrders";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -30,7 +31,7 @@ export const router = createBrowserRouter([
         Component: Register,
       },
       {
-        path: "/AddFood",
+        path: "/add-food",
         element: (
           <PrivateRoutes>
             <AddFood></AddFood>
@@ -38,29 +39,45 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/AllFoods",
+        path: "/all-foods",
         Component: AllFoods,
       },
       {
         path: "/foods/:id",
         Component: FoodDetails,
-        loader:({params})=>fetch(`http://localhost:3000/foods/${params.id}`)
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/foods/${params.id}`),
       },
       {
-        path:'/update-food/:id',
-        loader:({params})=>fetch(`http://localhost:3000/foods/${params.id}`),
-        element:<PrivateRoutes>
-          <UpdateFood></UpdateFood>
-        </PrivateRoutes>
+        path: "/update-food/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/foods/${params.id}`),
+        element: (
+          <PrivateRoutes>
+            <UpdateFood></UpdateFood>
+          </PrivateRoutes>
+        ),
       },
       {
-        path:'/food-purchase/',
-        element: <PrivateRoutes>
-          <FoodPurchase></FoodPurchase>
-        </PrivateRoutes>
+        path: "/food-purchase/:id",
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/foods/${params.id}`),
+        element: (
+          <PrivateRoutes>
+            <FoodPurchase></FoodPurchase>
+          </PrivateRoutes>
+        ),
       },
       {
-        path: "/MyFoods",
+        path: "/my-orders/",
+        element: (
+          <PrivateRoutes>
+            <MyOrders></MyOrders>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "/my-foods",
         loader: () => fetch("http://localhost:3000/foods"),
         element: (
           <PrivateRoutes>

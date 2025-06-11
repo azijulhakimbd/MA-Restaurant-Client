@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
+import Spinner from "../../Components/Spinner";
 
 const ITEMS_PER_PAGE = 12;
 
@@ -86,7 +87,7 @@ const Gallery = () => {
 
       {/* Loading Spinner */}
       {loading && (
-        <p className="text-center my-4 text-gray-500 animate-pulse">Loading more...</p>
+        <Spinner></Spinner>
       )}
 
       {/* Lightbox */}
