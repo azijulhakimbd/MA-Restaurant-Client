@@ -15,7 +15,7 @@ const Footer = () => {
       <li>
         <NavLink
           className="text-yellow-500 dark:text-yellow-400 hover:underline font-bold"
-          to="/allfoods"
+          to="/all-foods"
         >
           All Foods
         </NavLink>

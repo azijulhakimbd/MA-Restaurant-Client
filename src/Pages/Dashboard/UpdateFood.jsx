@@ -23,10 +23,10 @@ const UpdateFood = () => {
       );
 
       if (res.data.modifiedCount > 0) {
-        toast.success("✅ Food item updated successfully!", {
+        toast.success(" Food item updated successfully!", {
           position: "top-right",
         });
-        // Optionally: form.reset() or navigate
+        
       } else {
         toast.info("⚠️ No changes made or already up to date.", {
           position: "top-right",
@@ -34,7 +34,7 @@ const UpdateFood = () => {
       }
     } catch (error) {
       console.error("Error updating food:", error);
-      toast.error("❌ Failed to update food item.", {
+      toast.error(" Failed to update food item.", {
         position: "top-right",
       });
     }

@@ -28,7 +28,7 @@ const MyFoods = () => {
   if (loading) return <Spinner />;
 
   return (
-    <div className="max-w-6xl mx-auto mt-10 px-4">
+    <div className="min-h-screen mx-auto mt-10 px-4">
       <h2 className="text-3xl font-bold mb-6 text-center text-base-content">
         My Foods
       </h2>

@@ -1,20 +1,28 @@
 import React, { useState, useContext } from "react";
-import { useLoaderData, useNavigate } from "react-router"; 
+import { useLoaderData, useNavigate } from "react-router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../Context/AuthContext";
 
 const FoodPurchase = () => {
-  const { _id, name, price, quantity, image, addedByEmail,addedByName,origin } = useLoaderData();
+  const {
+    _id,
+    name,
+    price,
+    quantity,
+    image,
+    addedByEmail,
+    addedByName,
+    origin,
+  } = useLoaderData();
   const { user } = useContext(AuthContext);
   const [purchaseQuantity, setPurchaseQuantity] = useState(1);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handlePurchase = async (e) => {
     e.preventDefault();
 
-   
     if (purchaseQuantity > quantity) {
       toast.error("Purchase quantity exceeds available stock.");
       return;
@@ -24,21 +32,27 @@ const FoodPurchase = () => {
       image,
       foodId: _id,
       foodName: name,
-      price:price,
-      origin:origin,
+      price,
+      origin,
       quantity: purchaseQuantity,
       buyerName: user.displayName,
       sellerEmail: addedByEmail,
       sellerName: addedByName,
       buyerEmail: user.email,
-      date: new Date().toISOString(), 
+      date: new Date().toISOString(),
     };
 
     try {
       const response = await axios.post("http://localhost:3000/orders", order);
       if (response.status === 200 || response.status === 201) {
         toast.success("Order placed successfully!");
-        navigate("/my-orders"); 
+
+        const newQuantity = quantity - purchaseQuantity;
+        await axios.patch(`http://localhost:3000/foods/${_id}`, {
+          newQuantity: newQuantity,
+        });
+
+        navigate("/my-orders");
       }
     } catch (error) {
       console.error(error);
