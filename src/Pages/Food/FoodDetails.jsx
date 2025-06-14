@@ -12,12 +12,10 @@ const FoodDetails = () => {
     description,
     purchaseCount,
   } = useLoaderData();
-  console.log(_id);
-
- 
 
   return (
-    <div className="container mx-auto px-4 py-10 min-h-screen">
+    <div className="min-h-screen items-center">
+      <div className="container mx-auto px-4 py-10 ">
       <div className="card lg:card-side w-11/12 h-100 bg-base-100 shadow-xl">
         <figure className="w-200 h-100">
           <img src={image} alt={name} className="w-200 h-100" />
@@ -41,18 +39,20 @@ const FoodDetails = () => {
           </div>
 
           <div className="card-actions mt-4">
-            <Link to={`/food-purchase/${_id}`}><button
-              disabled={quantity === 0}
-              className={`btn w-full md:w-auto ${
-                quantity === 0 ? "btn-disabled" : "btn-primary"
-              }`}
-            >
-              {quantity === 0 ? "Out of Stock" : "Purchase"}
-            </button></Link>
+            <Link to={`/food-purchase/${_id}`}>
+              <button
+                disabled={quantity === 0}
+                className={`btn w-full md:w-auto ${
+                  quantity === 0 ? "btn-disabled" : "btn-primary"
+                }`}
+              >
+                {quantity === 0 ? "Out of Stock" : "Purchase"}
+              </button>
+            </Link>
           </div>
         </div>
       </div>
-    </div>
+    </div></div>
   );
 };
 

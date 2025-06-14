@@ -11,7 +11,9 @@ const MyFoods = () => {
 
   useEffect(() => {
     if (user.email) {
-      fetch(`http://localhost:3000/foods?email=${user.email}`)
+      fetch(
+        `https://restaurant-management-server-psi.vercel.app/foods?email=${user.email}`
+      )
         .then((res) => res.json())
         .then((data) => {
           setMyFoods(data);

@@ -8,7 +8,7 @@ const TopFoods = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/topFoods") 
+      .get("https://restaurant-management-server-psi.vercel.app/topFoods")
       .then((res) => setTopFoods(res.data))
       .catch((err) => {
         console.error("Failed to fetch top foods", err);
@@ -23,7 +23,10 @@ const TopFoods = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {topFoods.map((food) => (
-          <div key={food._id} className="card bg-base-200 shadow-md hover:shadow-lg transition duration-300">
+          <div
+            key={food._id}
+            className="card bg-base-200 shadow-md hover:shadow-lg transition duration-300"
+          >
             <figure>
               <img
                 src={food.image}
@@ -33,12 +36,21 @@ const TopFoods = () => {
             </figure>
             <div className="card-body">
               <h3 className="card-title text-yellow-500">{food.name}</h3>
-              <p><span className="font-semibold">Origin:</span> {food.origin}</p>
-              <p><span className="font-semibold">Price:</span> ${food.price}</p>
-              <p><span className="font-semibold text-success">Sold:</span> {food.purchaseCount || 0} times</p>
+              <p>
+                <span className="font-semibold">Origin:</span> {food.origin}
+              </p>
+              <p>
+                <span className="font-semibold">Price:</span> ${food.price}
+              </p>
+              <p>
+                <span className="font-semibold text-success">Sold:</span>{" "}
+                {food.purchaseCount || 0} times
+              </p>
               <div className="card-actions justify-end mt-4">
                 <Link to={`/foods/${food._id}`}>
-                  <button className="btn bg-yellow-500 btn-sm">Details</button>
+                  <button className="btn bg-yellow-500 btn-sm">
+                    Food Details
+                  </button>
                 </Link>
               </div>
             </div>

@@ -25,7 +25,10 @@ const AddFood = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:3000/foods", newFood);
+      const response = await axios.post(
+        "https://restaurant-management-server-psi.vercel.app/foods",
+        newFood
+      );
 
       if (response.data.insertedId || response.data.success) {
         toast.success("Food item added successfully!");

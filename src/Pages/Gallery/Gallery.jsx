@@ -33,10 +33,13 @@ const Gallery = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:3000/foods`)
+    fetch(`https://restaurant-management-server-psi.vercel.app/foods`)
       .then((res) => res.json())
       .then((data) => {
-        const newItems = data.slice(page * ITEMS_PER_PAGE, (page + 1) * ITEMS_PER_PAGE);
+        const newItems = data.slice(
+          page * ITEMS_PER_PAGE,
+          (page + 1) * ITEMS_PER_PAGE
+        );
         setFoods((prev) => [...prev, ...newItems]);
         setHasMore(newItems.length === ITEMS_PER_PAGE);
         setLoading(false);
@@ -86,12 +89,15 @@ const Gallery = () => {
       </div>
 
       {/* Loading Spinner */}
-      {loading && (
-        <Spinner></Spinner>
-      )}
+      {loading && <Spinner></Spinner>}
 
       {/* Lightbox */}
-      <Lightbox open={open} close={() => setOpen(false)} index={index} slides={slides} />
+      <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        index={index}
+        slides={slides}
+      />
     </div>
   );
 };

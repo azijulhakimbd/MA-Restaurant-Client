@@ -46,12 +46,16 @@ export const router = createBrowserRouter([
         path: "/foods/:id",
         Component: FoodDetails,
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/foods/${params.id}`),
+          fetch(
+            `https://restaurant-management-server-psi.vercel.app/foods/${params.id}`
+          ),
       },
       {
         path: "/update-food/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/foods/${params.id}`),
+          fetch(
+            `https://restaurant-management-server-psi.vercel.app/foods/${params.id}`
+          ),
         element: (
           <PrivateRoutes>
             <UpdateFood></UpdateFood>
@@ -61,7 +65,9 @@ export const router = createBrowserRouter([
       {
         path: "/food-purchase/:id",
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/foods/${params.id}`),
+          fetch(
+            `https://restaurant-management-server-psi.vercel.app/foods/${params.id}`
+          ),
         element: (
           <PrivateRoutes>
             <FoodPurchase></FoodPurchase>
@@ -78,7 +84,8 @@ export const router = createBrowserRouter([
       },
       {
         path: "/my-foods",
-        loader: () => fetch("http://localhost:3000/foods"),
+        loader: () =>
+          fetch("https://restaurant-management-server-psi.vercel.app/foods"),
         element: (
           <PrivateRoutes>
             <MyFoods></MyFoods>

@@ -43,14 +43,20 @@ const FoodPurchase = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:3000/orders", order);
+      const response = await axios.post(
+        "https://restaurant-management-server-psi.vercel.app/orders",
+        order
+      );
       if (response.status === 200 || response.status === 201) {
         toast.success("Order placed successfully!");
 
         const newQuantity = quantity - purchaseQuantity;
-        await axios.patch(`http://localhost:3000/foods/${_id}`, {
-          newQuantity: newQuantity,
-        });
+        await axios.patch(
+          `https://restaurant-management-server-psi.vercel.app/foods/${_id}`,
+          {
+            newQuantity: newQuantity,
+          }
+        );
 
         navigate("/my-orders");
       }

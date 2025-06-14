@@ -13,7 +13,9 @@ const MyOrders = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:3000/orders?email=${user.email}`)
+        .get(
+          `https://restaurant-management-server-psi.vercel.app/orders?email=${user.email}`
+        )
         .then((res) => {
           setOrders(res.data);
         })
@@ -39,16 +41,16 @@ const MyOrders = () => {
     if (!result.isConfirmed) return;
 
     try {
-      const res = await axios.delete(`http://localhost:3000/orders/${id}`);
+      const res = await axios.delete(
+        `https://restaurant-management-server-psi.vercel.app/orders/${id}`
+      );
       if (res.status === 200) {
         setOrders(orders.filter((order) => order._id !== id));
         toast.success("Order deleted successfully!");
-       
       }
     } catch (error) {
       console.error(error);
       toast.error("Failed to delete the order.");
-     
     }
   };
 

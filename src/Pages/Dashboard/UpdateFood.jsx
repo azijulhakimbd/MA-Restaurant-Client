@@ -18,7 +18,7 @@ const UpdateFood = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:3000/foods/${_id}`,
+        `https://restaurant-management-server-psi.vercel.app/foods/${_id}`,
         updatedFoods
       );
 
@@ -26,7 +26,6 @@ const UpdateFood = () => {
         toast.success(" Food item updated successfully!", {
           position: "top-right",
         });
-        
       } else {
         toast.info("⚠️ No changes made or already up to date.", {
           position: "top-right",

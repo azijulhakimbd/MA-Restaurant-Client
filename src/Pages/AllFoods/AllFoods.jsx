@@ -2,15 +2,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import FoodCard from "../../Components/FoodCard";
 
-
-
 const AllFoods = () => {
   const [foods, setFoods] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/foods")
+      .get("https://restaurant-management-server-psi.vercel.app/foods")
       .then((res) => setFoods(res.data))
       .catch((err) => console.error("Error fetching foods:", err));
   }, []);
@@ -20,7 +18,6 @@ const AllFoods = () => {
       food.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       food.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
 
   return (
     <div className="min-h-screen bg-base-100 dark:bg-gray-900 transition-colors duration-500">
@@ -50,7 +47,6 @@ const AllFoods = () => {
           filteredFoods.map((food) => <FoodCard key={food._id} food={food} />)
         )}
       </div>
-      
     </div>
   );
 };
