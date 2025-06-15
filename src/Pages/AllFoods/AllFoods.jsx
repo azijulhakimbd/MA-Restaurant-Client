@@ -3,7 +3,6 @@ import axios from "axios";
 import FoodCard from "../../Components/FoodCard";
 import Spinner from "../../Components/Spinner";
 
-
 const AllFoods = () => {
   const [foods, setFoods] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -37,10 +36,13 @@ const AllFoods = () => {
   }
 
   return (
-    <div className="min-h-screen bg-base-100 dark:bg-gray-900 transition-colors duration-500">
+    <div className="min-h-screen bg-base-100 text-base-content transition-colors duration-500">
       {/* Title */}
-      <div className="bg-gradient-to-r from-green-400 to-blue-500 dark:from-green-700 dark:to-blue-800 h-60 flex items-center justify-center">
-        <h1 className="text-4xl font-bold text-white">All Foods</h1>
+      <div className="bg-base-200 py-16 shadow-inner text-center">
+        <h1 className="text-4xl font-bold text-primary">All Foods</h1>
+        <p className="text-base-content/70 mt-2">
+          Browse all available delicious meals
+        </p>
       </div>
 
       {/* Search */}
@@ -48,7 +50,7 @@ const AllFoods = () => {
         <input
           type="text"
           placeholder="Search by name or category..."
-          className="input input-bordered w-full max-w-full p-3 text-base-content dark:text-white bg-white dark:bg-gray-800"
+          className="input input-bordered w-full bg-base-100 text-base-content"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
@@ -57,7 +59,7 @@ const AllFoods = () => {
       {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-6 max-w-7xl mx-auto">
         {filteredFoods.length === 0 ? (
-          <p className="col-span-full text-center text-gray-500 dark:text-gray-400 text-xl">
+          <p className="col-span-full text-center text-base-content/60 text-xl">
             No foods found.
           </p>
         ) : (

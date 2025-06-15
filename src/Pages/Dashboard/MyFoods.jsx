@@ -10,7 +10,7 @@ const MyFoods = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user.email) {
+    if (user?.email) {
       fetch(
         `https://restaurant-management-server-psi.vercel.app/foods?email=${user.email}`
       )
@@ -30,7 +30,7 @@ const MyFoods = () => {
   if (loading) return <Spinner />;
 
   return (
-    <div className="min-h-screen mx-auto mt-10 px-4">
+    <div className="min-h-screen px-4 py-8 mx-auto w-11/12">
       <h2 className="text-3xl font-bold mb-6 text-center text-base-content">
         My Foods
       </h2>
@@ -40,42 +40,81 @@ const MyFoods = () => {
           You haven’t added any foods yet.
         </p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="table w-full bg-base-100 rounded-box shadow">
-            <thead className="bg-base-200 text-base-content">
-              <tr>
-                <th className="p-4 text-left">Image</th>
-                <th className="p-4 text-left">Name</th>
-                <th className="p-4 text-left">Price</th>
-                <th className="p-4 text-left">Quantity</th>
-                <th className="p-4 text-left">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {myFoods.map((food) => (
-                <tr key={food._id} className="border-t border-base-300">
-                  <td className="p-4">
-                    <img
-                      src={food.image}
-                      alt={food.name}
-                      className="h-16 w-16 rounded object-cover"
-                    />
-                  </td>
-                  <td className="p-4">{food.name}</td>
-                  <td className="p-4">${food.price}</td>
-                  <td className="p-4">{food.quantity}</td>
-                  <td className="p-4 flex gap-2">
-                    <Link to={`/update-food/${food._id}`}>
-                      <button className="btn btn-sm btn-info text-white">
-                        Update
-                      </button>
-                    </Link>
-                  </td>
+        <>
+          {/* Table view for md and up */}
+          <div className="hidden md:block overflow-x-auto">
+            <table className="table w-full bg-base-100 rounded-box shadow">
+              <thead className="bg-base-200 text-base-content">
+                <tr>
+                  <th className="p-4 text-left">Image</th>
+                  <th className="p-4 text-left">Name</th>
+                  <th className="p-4 text-left">Price</th>
+                  <th className="p-4 text-left">Quantity</th>
+                  <th className="p-4 text-left">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {myFoods.map((food) => (
+                  <tr key={food._id} className="border-t border-base-300">
+                    <td className="p-4">
+                      <img
+                        src={food.image}
+                        alt={food.name}
+                        className="h-16 w-16 rounded object-cover"
+                      />
+                    </td>
+                    <td className="p-4">{food.name}</td>
+                    <td className="p-4">${food.price}</td>
+                    <td className="p-4">{food.quantity}</td>
+                    <td className="p-4">
+                      <div className="flex gap-2">
+                        <Link to={`/update-food/${food._id}`}>
+                          <button className="btn btn-sm btn-info text-white">
+                            Update
+                          </button>
+                        </Link>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Card view for small screens */}
+          <div className="md:hidden flex flex-col gap-4">
+            {myFoods.map((food) => (
+              <div
+                key={food._id}
+                className="card bg-base-100 shadow-md rounded-box p-4"
+              >
+                <div className="flex items-center gap-4">
+                  <img
+                    src={food.image}
+                    alt={food.name}
+                    className="w-20 h-20 rounded object-cover"
+                  />
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-lg">{food.name}</h3>
+                    <p className="text-sm text-base-content">
+                      Price: ${food.price}
+                    </p>
+                    <p className="text-sm text-base-content">
+                      Quantity: {food.quantity}
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-4 text-right">
+                  <Link to={`/update-food/${food._id}`}>
+                    <button className="btn btn-sm btn-info text-white">
+                      Update
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

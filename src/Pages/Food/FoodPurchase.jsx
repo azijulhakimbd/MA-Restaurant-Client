@@ -16,9 +16,13 @@ const FoodPurchase = () => {
     addedByName,
     origin,
   } = useLoaderData();
+
   const { user } = useContext(AuthContext);
   const [purchaseQuantity, setPurchaseQuantity] = useState(1);
   const navigate = useNavigate();
+
+  const isOwnFood = user.email === addedByEmail;
+  const isOutOfStock = quantity === 0;
 
   const handlePurchase = async (e) => {
     e.preventDefault();
@@ -72,9 +76,21 @@ const FoodPurchase = () => {
         Purchase Food
       </h2>
 
+      {isOwnFood ? (
+        <div className="text-center text-red-600 text-lg font-semibold">
+          You cannot purchase your own added food item.
+        </div>
+      ) : isOutOfStock ? (
+        <div className="text-center text-red-600 text-lg font-semibold">
+          This food item is currently out of stock. Please try again later.
+        </div>
+      ) : null}
+
       <form
         onSubmit={handlePurchase}
-        className="w-full max-w-md mx-auto bg-base-100 p-6 rounded-lg shadow-lg space-y-4"
+        className={`w-full max-w-md mx-auto bg-base-100 p-6 rounded-lg shadow-lg space-y-4 ${
+          isOwnFood || isOutOfStock ? "opacity-50 pointer-events-none" : ""
+        }`}
       >
         <div>
           <label className="label font-semibold text-base-content">
@@ -133,7 +149,11 @@ const FoodPurchase = () => {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary w-full mt-4">
+        <button
+          type="submit"
+          className="btn btn-primary w-full mt-4"
+          disabled={isOwnFood || isOutOfStock}
+        >
           Purchase
         </button>
       </form>
