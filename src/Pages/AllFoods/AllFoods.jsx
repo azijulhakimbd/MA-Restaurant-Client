@@ -1,16 +1,25 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import FoodCard from "../../Components/FoodCard";
+import Spinner from "../../Components/Spinner";
+
 
 const AllFoods = () => {
   const [foods, setFoods] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
       .get("https://restaurant-management-server-psi.vercel.app/foods")
-      .then((res) => setFoods(res.data))
-      .catch((err) => console.error("Error fetching foods:", err));
+      .then((res) => {
+        setFoods(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching foods:", err);
+        setLoading(false);
+      });
   }, []);
 
   const filteredFoods = foods.filter(
@@ -18,6 +27,14 @@ const AllFoods = () => {
       food.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       food.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-base-100 dark:bg-gray-900 transition-colors duration-500">

@@ -14,32 +14,35 @@ const FoodDetails = () => {
   } = useLoaderData();
 
   return (
-    <div className="min-h-screen items-center">
-      <div className="container mx-auto px-4 py-10 ">
-      <div className="card lg:card-side w-11/12 h-100 bg-base-100 shadow-xl">
-        <figure className="w-200 h-100">
-          <img src={image} alt={name} className="w-200 h-100" />
+    <div className="min-h-screen flex items-center justify-center bg-base-200 px-4 py-10">
+      <div className="card w-full max-w-6xl bg-base-100 shadow-xl flex flex-col lg:flex-row">
+        {/* Image Section */}
+        <figure className="w-full lg:w-1/2 max-h-[400px] overflow-hidden">
+          <img
+            src={image}
+            alt={name}
+            className="w-full h-full object-cover"
+          />
         </figure>
-        <div className="card-body lg:w-1/2 py-5">
-          <div className="items-center">
-            <h2 className="card-title text-2xl  text-yellow-500 md:text-3xl font-bold">
-              {name}
-            </h2>
-            <p className="text-lg">Category: {category}</p>
-            <p className="text-lg">Origin: {origin}</p>
-            <p className="text-lg">Available Quantity: {quantity}</p>
-            <p className="text-green-600 font-bold text-xl">Price: ${price}</p>
-            <p className="text-lg">{description}</p>
-            <p>
-              Purchase Count:{" "}
-              <span className="font-bold text-success">
-                {purchaseCount || 0}
-              </span>
-            </p>
-          </div>
 
+        {/* Details Section */}
+        <div className="card-body w-full lg:w-1/2">
+          <h2 className="card-title text-yellow-500 text-2xl md:text-3xl font-bold">
+            {name}
+          </h2>
+          <p className="text-base md:text-lg">Category: <span className="font-medium">{category}</span></p>
+          <p className="text-base md:text-lg">Origin: <span className="font-medium">{origin}</span></p>
+          <p className="text-base md:text-lg">Available Quantity: <span className="font-medium">{quantity}</span></p>
+          <p className="text-green-600 font-bold text-lg md:text-xl">Price: ${price}</p>
+          <p className="text-base md:text-lg">{description}</p>
+          <p className="text-base md:text-lg">
+            Purchase Count:{" "}
+            <span className="font-bold text-success">{purchaseCount || 0}</span>
+          </p>
+
+          {/* Purchase Button */}
           <div className="card-actions mt-4">
-            <Link to={`/food-purchase/${_id}`}>
+            <Link to={`/food-purchase/${_id}`} className="w-full md:w-auto">
               <button
                 disabled={quantity === 0}
                 className={`btn w-full md:w-auto ${
@@ -52,7 +55,7 @@ const FoodDetails = () => {
           </div>
         </div>
       </div>
-    </div></div>
+    </div>
   );
 };
 
