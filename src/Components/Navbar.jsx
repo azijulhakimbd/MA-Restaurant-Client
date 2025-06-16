@@ -93,6 +93,9 @@ const Navbar = () => {
             <Link className="btn bg-yellow-300 text-black" to={"/login"}>
               Login
             </Link>
+            <Link className="btn bg-yellow-300 text-black" to={"/register"}>
+              Register
+            </Link>
           </>
         )}
       </div>

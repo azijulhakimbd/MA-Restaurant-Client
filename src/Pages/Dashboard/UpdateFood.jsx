@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
-import axios from "axios";
 import { useLoaderData } from "react-router";
 import { AuthContext } from "../../Context/AuthContext";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import UpdateFoodApi from "../../Hook/UpdateFoodApi";
+
 
 const UpdateFood = () => {
   const { user } = useContext(AuthContext);
+  const { updateFood } = UpdateFoodApi();
+
   const { _id, name, image, category, origin, quantity, price, description } =
     useLoaderData();
 
@@ -17,13 +20,9 @@ const UpdateFood = () => {
     const updatedFoods = Object.fromEntries(formData.entries());
 
     try {
-      const res = await axios.put(
-        `https://restaurant-management-server-psi.vercel.app/foods/${_id}`,
-        updatedFoods
-      );
-
+      const res = await updateFood(_id, updatedFoods); 
       if (res.data.modifiedCount > 0) {
-        toast.success(" Food item updated successfully!", {
+        toast.success("Food item updated successfully!", {
           position: "top-right",
         });
       } else {
@@ -33,7 +32,7 @@ const UpdateFood = () => {
       }
     } catch (error) {
       console.error("Error updating food:", error);
-      toast.error(" Failed to update food item.", {
+      toast.error("Failed to update food item.", {
         position: "top-right",
       });
     }

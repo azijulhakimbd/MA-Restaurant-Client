@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import axios from "axios";
-
 import { AuthContext } from "../../Context/AuthContext";
 import { toast } from "react-toastify";
+import AddFoodApi from "../../Hook/AddFoodApi";
 
 const AddFood = () => {
   const { user } = useContext(AuthContext);
+  const { addFood } = AddFoodApi();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,10 +25,7 @@ const AddFood = () => {
     };
 
     try {
-      const response = await axios.post(
-        "https://restaurant-management-server-psi.vercel.app/foods",
-        newFood
-      );
+      const response = await addFood(newFood);
 
       if (response.data.insertedId || response.data.success) {
         toast.success("Food item added successfully!");

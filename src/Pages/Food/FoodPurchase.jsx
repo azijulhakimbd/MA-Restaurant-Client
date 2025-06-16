@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import { useLoaderData, useNavigate } from "react-router";
-import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../Context/AuthContext";
+import FoodPurchaseApi from "../../Hook/FoodPurchaseApi";
 
 const FoodPurchase = () => {
   const {
@@ -19,9 +19,11 @@ const FoodPurchase = () => {
 
   const { user } = useContext(AuthContext);
   const [purchaseQuantity, setPurchaseQuantity] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { placeOrder, updateFoodQuantity } = FoodPurchaseApi();
 
-  const isOwnFood = user.email === addedByEmail;
+  const isOwnFood = user?.email === addedByEmail;
   const isOutOfStock = quantity === 0;
 
   const handlePurchase = async (e) => {
@@ -47,26 +49,25 @@ const FoodPurchase = () => {
     };
 
     try {
-      const response = await axios.post(
-        "https://restaurant-management-server-psi.vercel.app/orders",
-        order
-      );
+      setIsSubmitting(true);
+
+      const response = await placeOrder(order);
+
       if (response.status === 200 || response.status === 201) {
         toast.success("Order placed successfully!");
 
-        const newQuantity = quantity - purchaseQuantity;
-        await axios.patch(
-          `https://restaurant-management-server-psi.vercel.app/foods/${_id}`,
-          {
-            newQuantity: newQuantity,
-          }
-        );
+        // Send decrement amount (negative number) to backend
+        await updateFoodQuantity(_id, -purchaseQuantity);
 
-        navigate("/my-orders");
+        setTimeout(() => {
+          navigate("/my-orders");
+        }, 1000);
       }
     } catch (error) {
       console.error(error);
       toast.error("Failed to place the order.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -107,7 +108,7 @@ const FoodPurchase = () => {
           <label className="label font-semibold text-base-content">Price</label>
           <input
             type="text"
-            value={`$${price}`}
+            value={`$${price.toFixed(2)}`}
             disabled
             className="input text-lg input-bordered w-full"
           />
@@ -121,7 +122,10 @@ const FoodPurchase = () => {
             min={1}
             max={quantity}
             value={purchaseQuantity}
-            onChange={(e) => setPurchaseQuantity(parseInt(e.target.value))}
+            onChange={(e) => {
+              const val = parseInt(e.target.value);
+              setPurchaseQuantity(isNaN(val) ? 1 : val);
+            }}
             required
             className="input text-lg input-bordered w-full"
           />
@@ -152,9 +156,9 @@ const FoodPurchase = () => {
         <button
           type="submit"
           className="btn btn-primary w-full mt-4"
-          disabled={isOwnFood || isOutOfStock}
+          disabled={isSubmitting || isOwnFood || isOutOfStock}
         >
-          Purchase
+          {isSubmitting ? "Processing..." : "Purchase"}
         </button>
       </form>
     </div>

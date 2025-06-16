@@ -3,20 +3,20 @@ import { AuthContext } from "../../Context/AuthContext";
 import { toast } from "react-toastify";
 import Spinner from "../../Components/Spinner";
 import { Link } from "react-router";
+import MyFoodsApi from "../../Hook/MyFoodsApi";
 
 const MyFoods = () => {
   const { user } = useContext(AuthContext);
   const [myFoods, setMyFoods] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const getMyFoods = MyFoodsApi();
+
   useEffect(() => {
     if (user?.email) {
-      fetch(
-        `https://restaurant-management-server-psi.vercel.app/foods?email=${user.email}`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          setMyFoods(data);
+      getMyFoods(user.email)
+        .then((res) => {
+          setMyFoods(res.data);
           setLoading(false);
         })
         .catch((err) => {

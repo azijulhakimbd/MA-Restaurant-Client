@@ -1,27 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import moment from "moment";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../Context/AuthContext";
+import MyOrdersApi from "../../Hook/MyOrdersApi";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const { getOrders, deleteOrder } = MyOrdersApi();
 
   useEffect(() => {
     if (user?.email) {
-      axios
-        .get(
-          `https://restaurant-management-server-psi.vercel.app/orders?email=${user.email}`
-        )
+      getOrders(user.email)
         .then((res) => {
           setOrders(res.data);
+          setLoading(false);
         })
         .catch((err) => {
           console.error(err);
           toast.error("Failed to fetch your orders.");
+          setLoading(false);
         });
     }
   }, [user]);
@@ -41,18 +43,24 @@ const MyOrders = () => {
     if (!result.isConfirmed) return;
 
     try {
-      const res = await axios.delete(
-        `https://restaurant-management-server-psi.vercel.app/orders/${id}`
-      );
+      const res = await deleteOrder(id);
       if (res.status === 200) {
-        setOrders(orders.filter((order) => order._id !== id));
-        toast.success("Order deleted successfully!");
+        setOrders((prev) => prev.filter((order) => order._id !== id));
+        toast.success("Order deleted and stock restored!");
       }
     } catch (error) {
       console.error(error);
       toast.error("Failed to delete the order.");
     }
   };
+
+  if (loading) {
+    return (
+      <div className="text-center py-20">
+        <span className="loading loading-spinner text-primary text-3xl"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto px-4 py-10 min-h-screen">
@@ -88,7 +96,6 @@ const MyOrders = () => {
                       alt={order.foodName}
                       className="w-12 h-12 rounded object-cover"
                     />
-
                     <span>{order.foodName}</span>
                   </td>
                   <td>${order.price}</td>
