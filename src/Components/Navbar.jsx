@@ -4,6 +4,7 @@ import { Link, NavLink } from "react-router";
 import ThemeToggle from "./ThemeToggle";
 import UserProfile from "./UserProfile";
 import { AuthContext } from "../Context/AuthContext";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const { user, logOut } = use(AuthContext);
@@ -36,7 +37,14 @@ const Navbar = () => {
     </>
   );
   const handleLogout = () => {
-    logOut();
+    logOut()
+      .then(() => {
+        toast.success("Logout successful!");
+      })
+      .catch((error) => {
+        toast.error("Logout failed. Please try again.");
+        console.error(error);
+      });
   };
 
   return (
