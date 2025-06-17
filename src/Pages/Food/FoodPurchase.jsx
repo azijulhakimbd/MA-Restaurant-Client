@@ -108,7 +108,7 @@ const FoodPurchase = () => {
           <label className="label font-semibold text-base-content">Price</label>
           <input
             type="text"
-            value={`$${price.toFixed(2)}`}
+            value={`$${Number(price).toFixed(2)}`}
             disabled
             className="input text-lg input-bordered w-full"
           />
