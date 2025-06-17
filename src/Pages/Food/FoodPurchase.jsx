@@ -21,15 +21,18 @@ const FoodPurchase = () => {
   const [purchaseQuantity, setPurchaseQuantity] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
-  const { placeOrder, updateFoodQuantity } = FoodPurchaseApi();
+  const { placeOrder } = FoodPurchaseApi();
 
   const isOwnFood = user?.email === addedByEmail;
-  const isOutOfStock = quantity === 0;
+  const isOutOfStock = Number(quantity) === 0;
 
   const handlePurchase = async (e) => {
     e.preventDefault();
 
-    if (purchaseQuantity > quantity) {
+    const availableStock = Number(quantity);
+    const orderQty = Number(purchaseQuantity);
+
+    if (orderQty > availableStock) {
       toast.error("Purchase quantity exceeds available stock.");
       return;
     }
@@ -38,30 +41,23 @@ const FoodPurchase = () => {
       image,
       foodId: _id,
       foodName: name,
-      price,
+      price: Number(price),
       origin,
-      quantity: purchaseQuantity,
+      quantity: orderQty,
       buyerName: user.displayName,
       sellerEmail: addedByEmail,
       sellerName: addedByName,
-      buyerEmail: user.email,
-      date: new Date().toISOString(),
     };
 
     try {
       setIsSubmitting(true);
-
       const response = await placeOrder(order);
 
       if (response.status === 200 || response.status === 201) {
         toast.success("Order placed successfully!");
-
-        // Send decrement amount (negative number) to backend
-        await updateFoodQuantity(_id, -purchaseQuantity);
-
-        setTimeout(() => {
-          navigate("/my-orders");
-        }, 1000);
+        setTimeout(() => navigate("/my-orders"), 1000);
+      } else {
+        throw new Error("Unexpected server response");
       }
     } catch (error) {
       console.error(error);
@@ -94,9 +90,7 @@ const FoodPurchase = () => {
         }`}
       >
         <div>
-          <label className="label font-semibold text-base-content">
-            Food Name
-          </label>
+          <label className="label font-semibold text-base-content">Food Name</label>
           <input
             type="text"
             value={name}
@@ -131,9 +125,7 @@ const FoodPurchase = () => {
           />
         </div>
         <div>
-          <label className="label font-semibold text-base-content">
-            Buyer Name
-          </label>
+          <label className="label font-semibold text-base-content">Buyer Name</label>
           <input
             type="text"
             value={user.displayName}
@@ -142,9 +134,7 @@ const FoodPurchase = () => {
           />
         </div>
         <div>
-          <label className="label font-semibold text-base-content">
-            Buyer Email
-          </label>
+          <label className="label font-semibold text-base-content">Buyer Email</label>
           <input
             type="email"
             value={user.email}

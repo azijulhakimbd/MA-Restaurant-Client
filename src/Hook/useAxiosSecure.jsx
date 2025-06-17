@@ -10,6 +10,16 @@ const useAxiosSecure = () => {
     config.headers.authorization = `Bearer ${user.accessToken}`;
     return config;
   });
+
+  // response interceptor
+  axiosInstance.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
   return axiosInstance;
 };
 
