@@ -1,5 +1,12 @@
 import React from "react";
-import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt, FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaFacebook,
+  FaInstagram,
+  FaTwitter,
+} from "react-icons/fa";
 
 const Contact = () => {
   return (
@@ -42,13 +49,28 @@ const Contact = () => {
 
             {/* Social Links */}
             <div className="flex gap-6 pt-4">
-              <a href="https://facebook.com/azijulhakimbd" target="_blank" rel="noreferrer" className="text-blue-600 hover:scale-110 transition">
+              <a
+                href="https://facebook.com/azijulhakimbd"
+                target="_blank"
+                rel="noreferrer"
+                className="text-blue-600 hover:scale-110 transition"
+              >
                 <FaFacebook size={24} />
               </a>
-              <a href="https://twitter.com/azijulhakimbd" target="_blank" rel="noreferrer" className="text-sky-500 hover:scale-110 transition">
+              <a
+                href="https://twitter.com/azijulhakimbd"
+                target="_blank"
+                rel="noreferrer"
+                className="text-sky-500 hover:scale-110 transition"
+              >
                 <FaTwitter size={24} />
               </a>
-              <a href="https://instagram.com/azijulhakimbd" target="_blank" rel="noreferrer" className="text-pink-500 hover:scale-110 transition">
+              <a
+                href="https://instagram.com/azijulhakimbd"
+                target="_blank"
+                rel="noreferrer"
+                className="text-pink-500 hover:scale-110 transition"
+              >
                 <FaInstagram size={24} />
               </a>
             </div>
@@ -94,7 +116,10 @@ const Contact = () => {
               ></textarea>
             </div>
 
-            <button type="submit" className="btn bg-yellow-400 text-black hover:bg-yellow-500 w-full">
+            <button
+              type="submit"
+              className="btn bg-yellow-400 text-black hover:bg-yellow-500 w-full"
+            >
               Send Message
             </button>
           </form>

@@ -82,11 +82,11 @@ const Navbar = () => {
         {/* Logo */}
         <Link
           to="/"
-          className="btn btn-ghost normal-case text-3xl font-extrabold text-green-500 ml-2"
+          className="btn btn-ghost normal-case lg:text-3xl font-extrabold text-green-500 lg:ml-2"
         >
           <img
             src="https://i.postimg.cc/3NbX17Vz/logo-restaurant.png"
-            className="w-28 rounded-3xl bg-yellow-300"
+            className="w-20 lg:w-28 rounded-2xl lg:rounded-3xl bg-yellow-300"
             alt="MA Restaurant"
           />
         </Link>

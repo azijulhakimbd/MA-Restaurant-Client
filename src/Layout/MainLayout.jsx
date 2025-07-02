@@ -1,6 +1,7 @@
 import React from "react";
 import Home from "../Pages/Home/Home";
 import NewsletterSubscribe from "../Pages/Home/NewsletterSubscribe";
+import Contact from "../Pages/Contact/Contact";
 
 const MainLayout = () => {
   return (
@@ -9,7 +10,8 @@ const MainLayout = () => {
       <Home></Home>
       {/* Newsletter Section*/}
       <NewsletterSubscribe></NewsletterSubscribe>
-     
+      {/* contact */}
+     <Contact></Contact>
     </div>
   );
 };

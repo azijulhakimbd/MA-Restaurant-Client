@@ -45,8 +45,8 @@ const FoodDetails = () => {
             <Link to={`/food-purchase/${_id}`} className="w-full md:w-auto">
               <button
                 disabled={quantity === 0}
-                className={`btn w-full md:w-auto ${
-                  quantity === 0 ? "btn-disabled" : "btn-primary"
+                className={`btn w-full bg-yellow-500 md:w-auto ${
+                  quantity === 0 ? "btn-disabled" : "btn-yellow"
                 }`}
               >
                 {quantity === 0 ? "Out of Stock" : "Purchase"}

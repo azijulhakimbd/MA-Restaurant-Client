@@ -37,8 +37,8 @@ const FoodCard = ({ food }) => {
         <Link to={`/foods/${food._id}`} className="mt-4">
           <button
             disabled={food.quantity === 0}
-            className={`btn btn-sm w-full mt-2 ${
-              food.quantity === 0 ? "btn-disabled" : "btn-primary"
+            className={`btn border bg-yellow-500 btn-sm w-full mt-2 ${
+              food.quantity === 0 ? "btn-disabled" : "btn-yellow-500"
             }`}
           >
            Food Details
