@@ -1,5 +1,12 @@
-import React, { use } from "react";
-import { Link, NavLink } from "react-router";
+import React, { useContext } from "react";
+import { Link, NavLink } from "react-router"; 
+import {
+  FaHome,
+  FaUtensils,
+  FaImages,
+  FaInfoCircle,
+  FaPhoneAlt,
+} from "react-icons/fa";
 
 import ThemeToggle from "./ThemeToggle";
 import UserProfile from "./UserProfile";
@@ -7,35 +14,16 @@ import { AuthContext } from "../Context/AuthContext";
 import { toast } from "react-toastify";
 
 const Navbar = () => {
-  const { user, logOut } = use(AuthContext);
-  const links = (
-    <>
-      <li>
-        <NavLink
-          className="text-yellow-500 border-double border mx-2 font-extrabold"
-          to={"/"}
-        >
-          Home
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          className="text-yellow-500 border-double border mx-2 font-extrabold"
-          to={"/all-foods"}
-        >
-          All Foods
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          className="text-yellow-500 border-double border mx-2 font-extrabold"
-          to={"Gallery"}
-        >
-          Gallery
-        </NavLink>
-      </li>
-    </>
-  );
+  const { user, logOut } = useContext(AuthContext);
+
+  const links = [
+    { to: "/", label: "Home", icon: <FaHome size={20} className="inline mr-1" /> },
+    { to: "/all-foods", label: "All Foods", icon: <FaUtensils size={20} className="inline mr-1" /> },
+    { to: "/gallery", label: "Gallery", icon: <FaImages size={20} className="inline mr-1" /> },
+    { to: "/about-us", label: "About Us", icon: <FaInfoCircle size={20} className="inline mr-1" /> },
+    { to: "/contact", label: "Contact", icon: <FaPhoneAlt size={20} className="inline mr-1" /> },
+  ];
+
   const handleLogout = () => {
     logOut()
       .then(() => {
@@ -48,60 +36,109 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar sticky top-0 z-50 bg-base-100/70 backdrop-blur-md shadow-sm">
       <div className="navbar-start">
+        {/* Mobile dropdown toggle */}
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+          <label tabIndex={0} className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
+              className="h-6 w-6"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              {" "}
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
             </svg>
-          </div>
+          </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 text-yellow-500 border outline-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
-            {links}
+            {links.map(({ to, label, icon }) => (
+              <li key={to}>
+                <NavLink
+                  to={to}
+                  className={({ isActive }) =>
+                    `flex items-center px-3 py-2 rounded font-semibold ${
+                      isActive
+                        ? "bg-yellow-400 text-black"
+                        : "hover:bg-yellow-300 hover:text-black"
+                    }`
+                  }
+                >
+                  {icon} {label}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </div>
-        <a className="btn btn-ghost text-4xl f1 text-green-500 font-extrabold">
+
+        {/* Logo */}
+        <Link
+          to="/"
+          className="btn btn-ghost normal-case text-3xl font-extrabold text-green-500 ml-2"
+        >
           <img
             src="https://i.postimg.cc/3NbX17Vz/logo-restaurant.png"
-            className="w-30 bg-yellow-300 rounded-3xl"
+            className="w-28 rounded-3xl bg-yellow-300"
             alt="MA Restaurant"
           />
-        </a>
+        </Link>
       </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal text-yellow-400 px-1">{links}</ul>
-      </div>
-      <div className="navbar-end">
-        <ThemeToggle></ThemeToggle>
 
+      {/* Desktop menu */}
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1">
+          {links.map(({ to, label, icon }) => (
+            <li key={to}>
+              <NavLink
+                to={to}
+                className={({ isActive }) =>
+                  `flex items-center px-3 py-2 rounded font-semibold ${
+                    isActive
+                      ? "bg-yellow-400 text-black"
+                      : "text-yellow-500 hover:bg-yellow-300 hover:text-black"
+                  }`
+                }
+              >
+                {icon} {label}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Right side */}
+      <div className="navbar-end space-x-2">
+        <ThemeToggle />
         {user ? (
           <>
-            <UserProfile></UserProfile>
-            <button onClick={handleLogout} className="btn bg-red-400">
+            <UserProfile />
+            <button
+              onClick={handleLogout}
+              className="btn bg-red-400 hover:bg-red-500"
+            >
               Logout
             </button>
           </>
         ) : (
           <>
-            <Link className="btn bg-yellow-300 text-black" to={"/login"}>
+            <Link
+              className="btn bg-yellow-300 text-black hover:bg-yellow-400"
+              to="/login"
+            >
               Login
             </Link>
-            <Link className="btn bg-yellow-300 text-black" to={"/register"}>
+            <Link
+              className="btn bg-yellow-300 text-black hover:bg-yellow-400"
+              to="/register"
+            >
               Register
             </Link>
           </>

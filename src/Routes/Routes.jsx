@@ -13,6 +13,8 @@ import FoodDetails from "../Pages/Food/FoodDetails";
 import UpdateFood from "../Pages/Dashboard/UpdateFood";
 import FoodPurchase from "../Pages/Food/FoodPurchase";
 import MyOrders from "../Pages/Dashboard/MyOrders";
+import About from "../Pages/About/About";
+import Contact from "../Pages/Contact/Contact";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -29,6 +31,14 @@ export const router = createBrowserRouter([
       {
         path: "/register",
         Component: Register,
+      },
+      {
+        path:'/about-us',
+        Component:About
+      },
+      {
+        path:'/contact',
+        Component:Contact
       },
       {
         path: "/add-food",

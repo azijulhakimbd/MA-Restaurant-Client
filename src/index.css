@@ -4,6 +4,6 @@
 .varta {
   font-family: "Varta", sans-serif;
 }
-active {
-  background-color: blueviolet;
+.active{
+  background-color: #efefef;
 }
