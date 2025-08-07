@@ -99,5 +99,49 @@ This project aims to provide an efficient and visually appealing restaurant plat
 - 🛠️ Backend validation with Firebase Admin SDK
 
 ---
+## 📝 How to Run the Project Locally
+
+### ⚙️ Prerequisites
+
+- Node.js (v18+)
+- npm or yarn
+- Git
+- MongoDB Atlas Account
+- Firebase Project
+- Stripe Account
+
+### 📁 Step 1: Clone the Repositories
+
+```bash
+# Clone Client Side
+git clone https://github.com/azijulhakimbd/MA-Restaurant-Client.git
+
+# Clone Server Side
+git clone https://github.com/azijulhakimbd/MA-Restaurant-Server.git
+```
+
+### 🖥️ Step 2: Setup Client Side
+
+```bash
+cd MA-Restaurant-Client
+npm install
+```
+### ▶️ Start Client
+
+```bash
+npm run dev
+```
+
+### 🌐 Step 3: Setup Server Side
+
+```bash
+cd MA-Restaurant-Server
+npm install
+```
+### ▶️ Start Server
+
+```bash
+npm run dev
+```
 
 
