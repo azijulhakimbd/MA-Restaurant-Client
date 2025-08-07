@@ -108,7 +108,7 @@ This project aims to provide an efficient and visually appealing restaurant plat
 - Git
 - MongoDB Atlas Account
 - Firebase Project
-- Stripe Account
+
 
 ### 📁 Step 1: Clone the Repositories
 
