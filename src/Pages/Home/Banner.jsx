@@ -27,6 +27,7 @@ const Banner = () => {
 
   return (
     <div className="relative w-full h-[80vh] overflow-hidden">
+      {/* Background image fade animation */}
       <AnimatePresence>
         <motion.div
           key={currentImage}
@@ -41,32 +42,53 @@ const Banner = () => {
         </motion.div>
       </AnimatePresence>
 
+      {/* Text content animations */}
       <div className="absolute inset-0 flex items-center justify-center z-10">
-        <div className="text-center text-yellow-400 px-4 max-w-2xl">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight drop-shadow">
-            <span>
-              <Typewriter
-                cursor
-                cursorBlinking
-                delaySpeed={1000}
-                deleteSpeed={25}
-                loop={0}
-                typeSpeed={75}
-                words={["Welcome to MA Restaurant", "Discover Delicious Foods"]}
-              />
-            </span>
-          </h1>
-          <p className="text-base sm:text-lg md:text-xl mb-6 text-white drop-shadow-md">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="text-center text-yellow-400 px-4 max-w-2xl"
+        >
+          <motion.h1
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight drop-shadow"
+          >
+            <Typewriter
+              cursor
+              cursorBlinking
+              delaySpeed={1000}
+              deleteSpeed={25}
+              loop={0}
+              typeSpeed={75}
+              words={["Welcome to MA Restaurant", "Discover Delicious Foods"]}
+            />
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.8 }}
+            className="text-base sm:text-lg md:text-xl mb-6 text-white drop-shadow-md"
+          >
             Explore a wide variety of cuisines made with love and premium
             ingredients. Taste the tradition!
-          </p>
-          <button
+          </motion.p>
+
+          <motion.button
             onClick={handleExploreFoods}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1 }}
             className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 transition duration-300 rounded-md font-semibold text-gray-900 text-sm sm:text-base"
           >
             Explore All Foods
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </div>
     </div>
   );
