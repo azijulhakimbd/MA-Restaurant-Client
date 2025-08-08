@@ -52,8 +52,8 @@ const TopFoods = () => {
       {/* Skeleton Theme Wrapper */}
       <SkeletonTheme baseColor="#d9d9d9" highlightColor="#ecebeb">
         {loading ? (
-          // Skeleton Grid (4 per row on large screens)
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          // Skeleton Grid 
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mx-auto">
             {Array.from({ length: 8 }).map((_, i) => (
               <div
                 key={i}

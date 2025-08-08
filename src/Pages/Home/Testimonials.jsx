@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
-import { Typewriter } from "react-simple-typewriter";
 import Lottie from "lottie-react";
 import { motion } from "framer-motion";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
@@ -60,15 +59,7 @@ const Testimonials = () => {
           <Lottie animationData={reviewAnimation} loop={true} />
         </div>
         <h2 className="text-4xl font-bold text-yellow-500 text-center">
-          <Typewriter
-            cursor
-            cursorBlinking
-            delaySpeed={1000}
-            deleteSpeed={25}
-            loop={0}
-            typeSpeed={75}
-            words={["What Our Customers Say"]}
-          />
+         What Our Customers Say
         </h2>
       </motion.div>
 

@@ -4,7 +4,7 @@ import Contact from "../Pages/Contact/Contact";
 
 const MainLayout = () => {
   return (
-    <div className="w-11/12 mx-auto">
+    <div >
       {/* Home Section */}
       <Home></Home>
       {/* contact */}

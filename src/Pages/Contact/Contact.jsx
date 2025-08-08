@@ -35,7 +35,7 @@ const Contact = () => {
               <h1 className="text-4xl font-extrabold text-yellow-500 mb-2">
                 Contact MA Restaurant
               </h1>
-              <p className="text-lg text-gray-500 dark:text-gray-300">
+              <p className="text-lg text-gray-500 ">
                 We’re here to help. Reach out to us anytime!
               </p>
             </>

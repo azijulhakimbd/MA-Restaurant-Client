@@ -26,7 +26,10 @@ const Banner = () => {
   };
 
   return (
-    <div className="relative w-full h-[80vh] overflow-hidden">
+    <section
+      role="banner"
+      className="relative w-full h-70 my-2 lg:h-150 overflow-hidden"
+    >
       {/* Background image fade animation */}
       <AnimatePresence>
         <motion.div
@@ -37,24 +40,25 @@ const Banner = () => {
           transition={{ duration: 1 }}
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${images[currentImage]})` }}
+          aria-label={`Banner image ${currentImage + 1}`}
         >
           <div className="absolute inset-0 bg-black/60" />
         </motion.div>
       </AnimatePresence>
 
       {/* Text content animations */}
-      <div className="absolute inset-0 flex items-center justify-center z-10">
+      <div className="absolute inset-0 flex items-center justify-center z-10 px-4 sm:px-6 md:px-8">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-center text-yellow-400 px-4 max-w-2xl"
+          className="text-center max-w-3xl"
         >
           <motion.h1
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 leading-tight drop-shadow"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 leading-tight text-yellow-400 drop-shadow-lg"
           >
             <Typewriter
               cursor
@@ -71,7 +75,7 @@ const Banner = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.8 }}
-            className="text-base sm:text-lg md:text-xl mb-6 text-white drop-shadow-md"
+            className="text-base sm:text-lg md:text-xl mb-8 text-white drop-shadow-md"
           >
             Explore a wide variety of cuisines made with love and premium
             ingredients. Taste the tradition!
@@ -84,13 +88,14 @@ const Banner = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1 }}
-            className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 transition duration-300 rounded-md font-semibold text-gray-900 text-sm sm:text-base"
+            className="inline-block px-6 py-3 bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 rounded-md font-semibold text-gray-900 text-sm sm:text-base shadow-lg transition duration-300"
+            aria-label="Explore all foods"
           >
             Explore All Foods
           </motion.button>
         </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 

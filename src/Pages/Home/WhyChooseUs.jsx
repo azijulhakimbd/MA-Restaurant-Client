@@ -1,7 +1,6 @@
 import Lottie from "lottie-react";
 import React, { useEffect, useState } from "react";
 import { FaLeaf, FaClock, FaSmile } from "react-icons/fa";
-import { Typewriter } from "react-simple-typewriter";
 import { motion } from "framer-motion";
 import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -60,15 +59,7 @@ const WhyChooseUs = () => {
 
       {/* Heading */}
       <h2 className="text-3xl font-bold text-center text-yellow-400 mb-8">
-        <Typewriter
-          cursor
-          cursorBlinking
-          delaySpeed={1000}
-          deleteSpeed={25}
-          loop={0}
-          typeSpeed={75}
-          words={["Why Choose Us"]}
-        />
+        Why Choose Us
       </h2>
 
       {/* Cards */}

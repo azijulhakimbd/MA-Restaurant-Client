@@ -11,7 +11,6 @@ const UpcomingEvent = () => {
   const [currentImage, setCurrentImage] = useState(0);
 
   useEffect(() => {
-    // Simulate API load
     setTimeout(() => {
       setEvent({
         title: "🌮 Taco Tuesday - 50% Off!",
@@ -28,7 +27,6 @@ const UpcomingEvent = () => {
     }, 1500);
   }, []);
 
-  // Countdown
   useEffect(() => {
     if (!event) return;
 
@@ -52,7 +50,6 @@ const UpcomingEvent = () => {
     return () => clearInterval(interval);
   }, [event]);
 
-  // Auto-play slider every 4 seconds
   useEffect(() => {
     if (!event || loading) return;
     const timer = setInterval(() => {
@@ -73,9 +70,9 @@ const UpcomingEvent = () => {
 
   return (
     <section className="py-12 px-4 bg-base-100 text-base-content transition-colors duration-500">
-      <div className="mx-auto">
+      <div className="mx-auto max-w-7xl">
         <motion.h2
-          className="text-3xl font-bold text-center mb-8 text-yellow-500"
+          className="text-3xl font-bold text-center mb-8 text-yellow-500 sm:text-4xl"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -90,7 +87,7 @@ const UpcomingEvent = () => {
           transition={{ duration: 0.7 }}
         >
           {/* Image Slider */}
-          <div className="relative w-full h-96 overflow-hidden rounded-xl">
+          <div className="relative w-full h-64 sm:h-72 md:h-96 overflow-hidden rounded-xl">
             {loading ? (
               <Skeleton height="100%" baseColor="#d1d5db" highlightColor="#f3f4f6" />
             ) : (
@@ -100,26 +97,29 @@ const UpcomingEvent = () => {
                     key={event.images[currentImage]}
                     src={event.images[currentImage]}
                     alt={event.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover select-none"
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.5 }}
+                    draggable={false}
                   />
                 </AnimatePresence>
 
                 {/* Nav Arrows */}
                 <button
                   onClick={prevImage}
-                  className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60"
+                  aria-label="Previous image"
+                  className="absolute top-1/2 left-2 sm:left-4 -translate-y-1/2 bg-black/40 text-white p-2 sm:p-3 rounded-full hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 >
-                  <FaChevronLeft />
+                  <FaChevronLeft size={20} />
                 </button>
                 <button
                   onClick={nextImage}
-                  className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60"
+                  aria-label="Next image"
+                  className="absolute top-1/2 right-2 sm:right-4 -translate-y-1/2 bg-black/40 text-white p-2 sm:p-3 rounded-full hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 >
-                  <FaChevronRight />
+                  <FaChevronRight size={20} />
                 </button>
               </>
             )}
@@ -134,26 +134,32 @@ const UpcomingEvent = () => {
               </>
             ) : (
               <>
-                <h3 className="text-2xl font-bold mb-2">{event.title}</h3>
-                <p className="mb-4">{event.description}</p>
+                <h3 className="text-2xl font-bold mb-2 sm:text-3xl">{event.title}</h3>
+                <p className="mb-4 text-base sm:text-lg">{event.description}</p>
 
                 {!timeLeft.expired ? (
-                  <div className="flex gap-4 text-center text-lg font-bold">
+                  <div className="flex gap-4 text-center text-yellow-500 text-lg font-bold justify-start">
                     <div>
-                      <span className="block text-3xl">{timeLeft.hours ?? "00"}</span>
+                      <span className="block text-3xl sm:text-4xl tabular-nums">
+                        {timeLeft.hours ?? "00"}
+                      </span>
                       <span className="text-sm opacity-70">Hours</span>
                     </div>
                     <div>
-                      <span className="block text-3xl">{timeLeft.minutes ?? "00"}</span>
+                      <span className="block text-3xl sm:text-4xl tabular-nums">
+                        {timeLeft.minutes ?? "00"}
+                      </span>
                       <span className="text-sm opacity-70">Minutes</span>
                     </div>
                     <div>
-                      <span className="block text-3xl">{timeLeft.seconds ?? "00"}</span>
+                      <span className="block text-3xl sm:text-4xl tabular-nums">
+                        {timeLeft.seconds ?? "00"}
+                      </span>
                       <span className="text-sm opacity-70">Seconds</span>
                     </div>
                   </div>
                 ) : (
-                  <p className="text-red-500 font-semibold mt-4">Event Ended</p>
+                  <p className="text-red-500 font-semibold mt-4 text-center">Event Ended</p>
                 )}
               </>
             )}
