@@ -4,14 +4,16 @@ import TopFoods from "./TopFoods";
 import WhyChooseUs from "./WhyChooseUs";
 import Testimonials from "./Testimonials";
 import UpcomingEvent from "./UpcomingEvent";
+import FoodFeature from "./FoodFeature";
 
 const Home = () => {
   return (
     <div>
       <Banner></Banner>
       <TopFoods></TopFoods>
-      <WhyChooseUs></WhyChooseUs>
       <UpcomingEvent></UpcomingEvent>
+      <WhyChooseUs></WhyChooseUs>
+      <FoodFeature></FoodFeature>
       <Testimonials></Testimonials>
     </div>
   );
