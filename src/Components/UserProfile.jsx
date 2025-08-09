@@ -31,7 +31,7 @@ const UserProfile = () => {
         <li>
           <Link to={'/my-orders'}>My Orders</Link>
         </li>
-        <li></li>
+        <li><Link to={'/dashboard'}>Dashboard</Link></li>
       </ul>
     </div>
   );

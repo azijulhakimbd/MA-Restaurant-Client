@@ -15,6 +15,7 @@ import FoodPurchase from "../Pages/Food/FoodPurchase";
 import MyOrders from "../Pages/Dashboard/MyOrders";
 import About from "../Pages/About/About";
 import Contact from "../Pages/Contact/Contact";
+import DashboardLayout from "../Layout/DashboardLayout";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -33,12 +34,12 @@ export const router = createBrowserRouter([
         Component: Register,
       },
       {
-        path:'/about-us',
-        Component:About
+        path: "/about-us",
+        Component: About,
       },
       {
-        path:'/contact',
-        Component:Contact
+        path: "/contact",
+        Component: Contact,
       },
       {
         path: "/add-food",
@@ -59,6 +60,31 @@ export const router = createBrowserRouter([
           fetch(
             `https://restaurant-management-server-psi.vercel.app/foods/${params.id}`
           ),
+      },
+
+      {
+        path: "/Gallery",
+        Component: Gallery,
+      },
+    ],
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoutes>
+        <DashboardLayout></DashboardLayout>
+      </PrivateRoutes>
+    ),
+    children: [
+      {
+        path: "/my-foods",
+        loader: () =>
+          fetch("https://restaurant-management-server-psi.vercel.app/foods"),
+        element: (
+          <PrivateRoutes>
+            <MyFoods></MyFoods>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/update-food/:id",
@@ -91,20 +117,6 @@ export const router = createBrowserRouter([
             <MyOrders></MyOrders>
           </PrivateRoutes>
         ),
-      },
-      {
-        path: "/my-foods",
-        loader: () =>
-          fetch("https://restaurant-management-server-psi.vercel.app/foods"),
-        element: (
-          <PrivateRoutes>
-            <MyFoods></MyFoods>
-          </PrivateRoutes>
-        ),
-      },
-      {
-        path: "/Gallery",
-        Component: Gallery,
       },
     ],
   },

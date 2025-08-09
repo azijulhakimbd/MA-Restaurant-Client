@@ -1,8 +1,7 @@
 import React, { useContext, useState } from "react";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router"; 
-
+import { Link } from "react-router";
 import { AuthContext } from "../../Context/AuthContext";
 import { auth } from "../../Firebase/firebase.config";
 import { toast } from "react-toastify";
@@ -23,7 +22,6 @@ const Register = () => {
       return;
     }
 
-    //  Password Validation
     const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$/;
     if (!passwordRegex.test(password.value)) {
@@ -37,7 +35,7 @@ const Register = () => {
       setLoading(true);
       toast.dismiss();
 
-      const result = await createUser(email.value, password.value);
+      await createUser(email.value, password.value);
       await userUpdate({
         displayName: name.value,
         photoURL: photoURL.value,
@@ -68,13 +66,23 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <main className="w-full min-h-screen bg-base-300 flex items-center justify-center p-6 sm:py-12">
+    <div
+      className="relative w-full min-h-screen flex items-center justify-center bg-cover bg-center"
+      style={{
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1950&q=80')",
+      }}
+    >
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black/50"></div>
+
+      {/* Form */}
+      <main className="relative z-10 w-full max-w-lg bg-base-100/30 backdrop-blur-md rounded-lg shadow-lg p-6 sm:p-8">
         <form
           onSubmit={handleRegister}
-          className="w-full sm:w-[900px] max-w-[1000px] bg-base-200 rounded-lg p-4 sm:p-8 flex flex-col gap-5"
+          className="flex flex-col gap-5"
         >
-          <h3 className="text-2xl sm:text-3xl font-bold text-yellow-500 text-center py-6">
+          <h3 className="text-2xl sm:text-3xl font-bold text-yellow-500 text-center">
             Register
           </h3>
 
@@ -108,7 +116,7 @@ const Register = () => {
               name="password"
               placeholder="Password"
               required
-              className="input input-bordered w-full"
+              className="input input-bordered w-full pr-12"
             />
             {active ? (
               <BsEyeSlash
@@ -123,7 +131,7 @@ const Register = () => {
             )}
           </div>
 
-          <label className="flex items-center gap-2 text-sm">
+          <label className="flex items-center gap-2 text-sm flex-wrap">
             <input type="checkbox" name="checkbox" /> I agree to{" "}
             <a href="#" className="text-blue-500">
               Terms
@@ -134,27 +142,31 @@ const Register = () => {
             </a>
           </label>
 
-          <button type="submit" className="btn btn-primary w-full" disabled={loading}>
+          <button
+            type="submit"
+            className="btn btn-primary w-full"
+            disabled={loading}
+          >
             {loading ? "Registering..." : "Register"}
           </button>
 
-          <div className="text-center text-sm">
+          <p className="text-center text-sm">
             Already have an account?{" "}
-            <Link to="/login" className="text-blue-500">
+            <Link to="/login" className="text-blue-500 hover:underline">
               Log in
             </Link>
-          </div>
+          </p>
 
           <div className="flex items-center gap-3">
-            <hr className="w-1/2" />
-            <span>or</span>
-            <hr className="w-1/2" />
+            <hr className="w-1/2 border-base-300" />
+            <span className="text-xs text-base-content/60">or</span>
+            <hr className="w-1/2 border-base-300" />
           </div>
 
           <button
             type="button"
             onClick={handleGoogleSignup}
-            className="btn w-full flex items-center justify-center gap-3 bg-blue-500 text-white"
+            className="btn w-full flex items-center justify-center gap-3 bg-blue-500 text-lg hover:bg-blue-600"
           >
             <FcGoogle className="text-2xl" />
             Signup with Google
