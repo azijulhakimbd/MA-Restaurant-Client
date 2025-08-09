@@ -51,6 +51,11 @@ const Footer = () => {
                 alt="Logo"
               />
             </div>
+            <div className="py-5">
+              <p className="font-bold">
+                Savor the flavors of tradition and innovation at MA Restaurant  — where fresh ingredients meet mouthwatering recipes in every bite.
+              </p>
+            </div>
           </div>
 
           {/* Navigation Links */}

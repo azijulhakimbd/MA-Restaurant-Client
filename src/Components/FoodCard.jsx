@@ -11,13 +11,11 @@ const FoodCard = ({ food }) => {
         />
       </figure>
       <div className="card-body text-base-content">
-        <h2 className="card-title text-lg md:text-xl">{food.name}</h2>
-
+        <h2 className="card-title text-2xl font-bold md:text-xl">
+          {food.name}
+        </h2>
         <p className="text-sm opacity-80">
           <span className="font-semibold">Category:</span> {food.category}
-        </p>
-        <p className="text-sm opacity-80">
-          <span className="font-semibold">Origin:</span> {food.origin}
         </p>
         <p className="text-sm opacity-80">
           <span className="font-semibold">Quantity:</span>{" "}
@@ -28,11 +26,7 @@ const FoodCard = ({ food }) => {
           )}
         </p>
 
-        <p className="text-primary text-lg font-bold">${food.price}</p>
-
-        <p className="text-sm opacity-70">
-          {food.description?.slice(0, 80)}...
-        </p>
+        <p className="text-primary text-lg font-bold">Price: ${food.price}</p>
 
         <Link to={`/foods/${food._id}`} className="mt-4">
           <button
@@ -41,7 +35,7 @@ const FoodCard = ({ food }) => {
               food.quantity === 0 ? "btn-disabled" : "btn-yellow-500"
             }`}
           >
-           Food Details
+            Food Details
           </button>
         </Link>
       </div>
