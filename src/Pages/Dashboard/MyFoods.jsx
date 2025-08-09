@@ -68,7 +68,7 @@ const MyFoods = () => {
                     <td className="p-4">{food.quantity}</td>
                     <td className="p-4">
                       <div className="flex gap-2">
-                        <Link to={`/update-food/${food._id}`}>
+                        <Link to={`/dashboard/update-food/${food._id}`}>
                           <button className="btn btn-sm btn-info text-white">
                             Update
                           </button>
@@ -105,7 +105,7 @@ const MyFoods = () => {
                   </div>
                 </div>
                 <div className="mt-4 text-right">
-                  <Link to={`/update-food/${food._id}`}>
+                  <Link to={`/dashboard/update-food/${food._id}`}>
                     <button className="btn btn-sm btn-info text-white">
                       Update
                     </button>

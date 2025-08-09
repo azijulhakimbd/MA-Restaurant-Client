@@ -42,7 +42,7 @@ const FoodDetails = () => {
 
           {/* Purchase Button */}
           <div className="card-actions mt-4">
-            <Link to={`/food-purchase/${_id}`} className="w-full md:w-auto">
+            <Link to={`/dashboard/food-purchase/${_id}`} className="w-full md:w-auto">
               <button
                 disabled={quantity === 0}
                 className={`btn w-full bg-yellow-500 md:w-auto ${

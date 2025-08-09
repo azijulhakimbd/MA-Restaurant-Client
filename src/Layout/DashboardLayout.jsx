@@ -1,13 +1,27 @@
 import React, { useState } from "react";
-import { FiMenu, FiX, FiHome, FiUser, FiSettings } from "react-icons/fi";
+import {
+  FiHome,
+  FiUser,
+  FiShoppingBag,
+  FiList,
+  FiPlusSquare,
+  FiX,
+  FiMenu,
+} from "react-icons/fi";
+import { Link, Outlet } from "react-router";
 
-const DashboardLayout = ({ children }) => {
+const DashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const menuItems = [
     { name: "Home", icon: <FiHome />, link: "/dashboard" },
+    { name: "Add Food", icon: <FiPlusSquare />, link: "/dashboard/add-food" },
+    { name: "My Foods", icon: <FiList />, link: "/dashboard/my-foods" },
+    {
+      name: "My Orders",
+      icon: <FiShoppingBag />,
+      link: "/dashboard/my-orders",
+    },
     { name: "Profile", icon: <FiUser />, link: "/dashboard/profile" },
-    { name: "Settings", icon: <FiSettings />, link: "/dashboard/settings" },
   ];
 
   return (
@@ -15,7 +29,16 @@ const DashboardLayout = ({ children }) => {
       {/* Sidebar for desktop */}
       <div className="hidden md:flex md:flex-col w-64 bg-base-300 shadow-lg">
         <div className="p-6 text-2xl font-bold text-primary border-b border-base-100">
-          My Dashboard
+          <Link
+            to="/"
+            className="btn btn-ghost normal-case lg:text-3xl font-extrabold text-green-500"
+          >
+            <img
+              src="https://i.postimg.cc/3NbX17Vz/logo-restaurant.png"
+              className="w-20 lg:w-28 rounded-2xl lg:rounded-3xl bg-yellow-300"
+              alt="MA Restaurant"
+            />
+          </Link>
         </div>
         <nav className="flex flex-col gap-2 p-4">
           {menuItems.map((item) => (
@@ -70,7 +93,9 @@ const DashboardLayout = ({ children }) => {
           <h1 className="text-lg font-semibold">Dashboard</h1>
         </header>
 
-        <main className="p-6 flex-1">{children}</main>
+        <main className="p-6 flex-1">
+          <Outlet></Outlet>
+        </main>
       </div>
     </div>
   );
