@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import FoodCard from "../../Components/FoodCard";
-import Spinner from "../../Components/Spinner";
 import { motion, AnimatePresence } from "framer-motion";
 
 const AllFoods = () => {

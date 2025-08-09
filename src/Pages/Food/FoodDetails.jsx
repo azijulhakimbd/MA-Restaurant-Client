@@ -14,10 +14,10 @@ const FoodDetails = () => {
   } = useLoaderData();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-base-200 px-4 py-10">
-      <div className="card w-full max-w-6xl bg-base-100 shadow-xl flex flex-col lg:flex-row">
+    <div className="min-h-screen mx-auto px-20 flex items-center justify-center bg-base-200 py-10">
+      <div className="card w-full h-150 bg-base-100 shadow-xl flex flex-col lg:flex-row">
         {/* Image Section */}
-        <figure className="w-full lg:w-1/2 max-h-[400px] overflow-hidden">
+        <figure className="w-full lg:w-1/2 overflow-hidden">
           <img
             src={image}
             alt={name}
