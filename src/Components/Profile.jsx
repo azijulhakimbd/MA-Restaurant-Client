@@ -19,45 +19,46 @@ const Profile = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-gray-900 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 max-w-md w-full text-center transition-colors duration-300">
+    <div className="flex justify-center items-center min-h-screen p-4 bg-base-200  transition-colors duration-300">
+      <div className="bg-base-300  rounded-lg shadow-lg p-6 max-w-xl w-full text-center">
         {/* Profile Picture */}
         <div className="flex justify-center">
           <img
             src={user?.photoURL || "https://via.placeholder.com/150"}
             alt="User"
-            className="w-32 h-32 rounded-full object-cover border-4 border-blue-500"
+            className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-4 border-blue-500"
           />
         </div>
 
         {/* User Info */}
-        <h2 className="text-2xl text-yellow-500 dark:text-yellow-400 font-bold mt-4">
+        <h2 className="text-xl sm:text-2xl text-yellow-500  font-bold mt-4 truncate">
           Name: {user?.displayName || "No Name"}
         </h2>
-        <p className="text-gray-600 dark:text-gray-300">
+        <p className="text-sm sm:text-base text-gray-600  truncate">
           Email: {user?.email || "No Email"}
         </p>
 
         {/* Edit Button */}
         <button
           onClick={() => setIsModalOpen(true)}
-          className="mt-6 flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg transition duration-300 w-full"
+          className="mt-6 inline-flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white py-2 px-6 rounded-lg transition duration-300 max-w-full mx-auto"
+          aria-label="Edit Profile"
         >
           <FiEdit className="text-lg" />
-          Edit Profile
+          <span className="text-sm sm:text-base">Edit Profile</span>
         </button>
       </div>
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/60">
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/60 p-4">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md transition-colors duration-300">
-            <h2 className="text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 text-gray-800 dark:text-gray-100">
               Edit Profile
             </h2>
             <form onSubmit={handleSave} className="space-y-4">
               <div>
-                <label className="block text-gray-700 dark:text-gray-300">
+                <label className="block text-gray-700 dark:text-gray-300 mb-1">
                   Name
                 </label>
                 <input
@@ -65,10 +66,11 @@ const Profile = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="w-full px-4 py-2 border rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring focus:ring-blue-300"
+                  placeholder="Enter your name"
                 />
               </div>
               <div>
-                <label className="block text-gray-700 dark:text-gray-300">
+                <label className="block text-gray-700 dark:text-gray-300 mb-1">
                   Photo URL
                 </label>
                 <input
@@ -76,19 +78,20 @@ const Profile = () => {
                   value={photoURL}
                   onChange={(e) => setPhotoURL(e.target.value)}
                   className="w-full px-4 py-2 border rounded-lg bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring focus:ring-blue-300"
+                  placeholder="Enter photo URL"
                 />
               </div>
-              <div className="flex justify-end gap-3">
+              <div className="flex flex-col sm:flex-row justify-end gap-3 mt-4">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-lg bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-900 dark:text-gray-100"
+                  className="px-4 py-2 rounded-lg bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 text-gray-900 dark:text-gray-100 transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600"
+                  className="px-4 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition"
                 >
                   Save
                 </button>

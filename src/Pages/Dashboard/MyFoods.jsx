@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { toast } from "react-toastify";
 import Spinner from "../../Components/Spinner";
-import { Link } from "react-router";
+import { Link } from "react-router"; 
 import MyFoodsApi from "../../Hook/MyFoodsApi";
 
 const MyFoods = () => {
@@ -10,11 +10,11 @@ const MyFoods = () => {
   const [myFoods, setMyFoods] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const getMyFoods = MyFoodsApi();
+  const { getFoodsByEmail } = MyFoodsApi();
 
   useEffect(() => {
     if (user?.email) {
-      getMyFoods(user.email)
+      getFoodsByEmail(user.email)
         .then((res) => {
           setMyFoods(res.data);
           setLoading(false);
@@ -25,7 +25,7 @@ const MyFoods = () => {
           setLoading(false);
         });
     }
-  }, [user]);
+  }, [user?.email]);
 
   if (loading) return <Spinner />;
 

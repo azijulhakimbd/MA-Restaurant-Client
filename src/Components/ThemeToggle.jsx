@@ -10,7 +10,7 @@ const ThemeToggle = () => {
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme); // Save theme to localStorage
+    localStorage.setItem("theme", theme); 
   }, [theme]);
 
   const toggleTheme = () => {

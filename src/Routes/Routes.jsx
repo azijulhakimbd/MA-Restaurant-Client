@@ -17,6 +17,7 @@ import About from "../Pages/About/About";
 import Contact from "../Pages/Contact/Contact";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Profile from "../Components/Profile";
+import DashboardHome from "../Pages/Dashboard/DashboardHome";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -42,7 +43,7 @@ export const router = createBrowserRouter([
         path: "/contact",
         Component: Contact,
       },
-    
+
       {
         path: "/all-foods",
         Component: AllFoods,
@@ -66,27 +67,23 @@ export const router = createBrowserRouter([
     path: "dashboard",
     element: (
       <PrivateRoutes>
-        <DashboardLayout></DashboardLayout>
+        <DashboardLayout />
       </PrivateRoutes>
     ),
     children: [
       {
+        index: true, 
+        element: <DashboardHome />, 
+      },
+      {
         path: "add-food",
-        element: (
-          <PrivateRoutes>
-            <AddFood></AddFood>
-          </PrivateRoutes>
-        ),
+        element: <AddFood />,
       },
       {
         path: "my-foods",
         loader: () =>
           fetch("https://restaurant-management-server-psi.vercel.app/foods"),
-        element: (
-          <PrivateRoutes>
-           <MyFoods></MyFoods>
-          </PrivateRoutes>
-        ),
+        element: <MyFoods />,
       },
       {
         path: "update-food/:id",
@@ -94,11 +91,7 @@ export const router = createBrowserRouter([
           fetch(
             `https://restaurant-management-server-psi.vercel.app/foods/${params.id}`
           ),
-        element: (
-          <PrivateRoutes>
-           <UpdateFood></UpdateFood>
-          </PrivateRoutes>
-        ),
+        element: <UpdateFood />,
       },
       {
         path: "food-purchase/:id",
@@ -106,26 +99,16 @@ export const router = createBrowserRouter([
           fetch(
             `https://restaurant-management-server-psi.vercel.app/foods/${params.id}`
           ),
-        element: (
-          <PrivateRoutes>
-           <FoodPurchase></FoodPurchase>
-          </PrivateRoutes>
-        ),
+        element: <FoodPurchase />,
       },
       {
         path: "my-orders",
-        element: (
-          <PrivateRoutes>
-            <MyOrders></MyOrders>
-          </PrivateRoutes>
-        ),
+        element: <MyOrders />,
       },
       {
-        path:'profile',
-        element:<PrivateRoutes>
-          <Profile></Profile>
-        </PrivateRoutes>
-      }
+        path: "profile",
+        element: <Profile />,
+      },
     ],
   },
   {

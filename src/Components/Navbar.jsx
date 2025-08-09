@@ -36,7 +36,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar px-15 sticky top-0 z-50 bg-base-100/70 backdrop-blur-md shadow-sm">
+    <div className="navbar px-5 lg:px-15 sticky top-0 z-50 bg-base-100/70 backdrop-blur-md shadow-sm">
       <div className="navbar-start">
         {/* Mobile dropdown toggle */}
         <div className="dropdown">

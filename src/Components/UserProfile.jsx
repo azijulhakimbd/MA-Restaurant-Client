@@ -15,7 +15,7 @@ const UserProfile = () => {
         className="btn btn-ghost btn-circle avatar"
       >
         <div className="w-10 rounded-full">
-          <img alt="User Photo" src={user.photoURL} />
+          <img src={user?.photoURL || "User"} alt="Picture"/>
         </div>
       </div>
       <ul
