@@ -1,9 +1,46 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { toast } from "react-toastify";
-import Spinner from "../../Components/Spinner";
-import { Link } from "react-router"; 
+import { Link } from "react-router";
 import MyFoodsApi from "../../Hook/MyFoodsApi";
+import { motion } from "framer-motion";
+
+// Simple Skeleton Loader Component
+const SkeletonRow = () => (
+  <tr className="border-t border-base-300 animate-pulse">
+    <td className="p-4">
+      <div className="h-16 w-16 bg-base-300 rounded"></div>
+    </td>
+    <td className="p-4">
+      <div className="h-4 w-24 bg-base-300 rounded"></div>
+    </td>
+    <td className="p-4">
+      <div className="h-4 w-12 bg-base-300 rounded"></div>
+    </td>
+    <td className="p-4">
+      <div className="h-4 w-12 bg-base-300 rounded"></div>
+    </td>
+    <td className="p-4">
+      <div className="h-8 w-16 bg-base-300 rounded"></div>
+    </td>
+  </tr>
+);
+
+const SkeletonCard = () => (
+  <div className="card bg-base-100 shadow-md rounded-box p-4 animate-pulse">
+    <div className="flex items-center gap-4">
+      <div className="w-20 h-20 bg-base-300 rounded"></div>
+      <div className="flex-1 space-y-2">
+        <div className="h-4 w-32 bg-base-300 rounded"></div>
+        <div className="h-4 w-20 bg-base-300 rounded"></div>
+        <div className="h-4 w-16 bg-base-300 rounded"></div>
+      </div>
+    </div>
+    <div className="mt-4 text-right">
+      <div className="h-8 w-16 bg-base-300 rounded"></div>
+    </div>
+  </div>
+);
 
 const MyFoods = () => {
   const { user } = useContext(AuthContext);
@@ -27,18 +64,54 @@ const MyFoods = () => {
     }
   }, [user?.email]);
 
-  if (loading) return <Spinner />;
-
   return (
     <div className="min-h-screen px-4 py-8 mx-auto w-11/12">
-      <h2 className="text-3xl font-bold mb-6 text-center text-base-content">
+      <motion.h2
+        className="text-3xl font-bold mb-6 text-center text-base-content"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
         My Foods
-      </h2>
+      </motion.h2>
 
-      {myFoods.length === 0 ? (
-        <p className="text-center text-gray-600 dark:text-gray-400">
+      {loading ? (
+        <>
+          {/* Skeleton for table */}
+          <div className="hidden md:block overflow-x-auto">
+            <table className="table w-full bg-base-100 rounded-box shadow">
+              <thead className="bg-base-200 text-base-content">
+                <tr>
+                  <th className="p-4 text-left">Image</th>
+                  <th className="p-4 text-left">Name</th>
+                  <th className="p-4 text-left">Price</th>
+                  <th className="p-4 text-left">Quantity</th>
+                  <th className="p-4 text-left">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[...Array(4)].map((_, i) => (
+                  <SkeletonRow key={i} />
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Skeleton for cards */}
+          <div className="md:hidden flex flex-col gap-4">
+            {[...Array(4)].map((_, i) => (
+              <SkeletonCard key={i} />
+            ))}
+          </div>
+        </>
+      ) : myFoods.length === 0 ? (
+        <motion.p
+          className="text-center text-gray-600 dark:text-gray-400"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
           You haven’t added any foods yet.
-        </p>
+        </motion.p>
       ) : (
         <>
           {/* Table view for md and up */}
@@ -53,9 +126,26 @@ const MyFoods = () => {
                   <th className="p-4 text-left">Actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <motion.tbody
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {},
+                  visible: {
+                    transition: { staggerChildren: 0.05 },
+                  },
+                }}
+              >
                 {myFoods.map((food) => (
-                  <tr key={food._id} className="border-t border-base-300">
+                  <motion.tr
+                    key={food._id}
+                    variants={{
+                      hidden: { opacity: 0, y: 10 },
+                      visible: { opacity: 1, y: 0 },
+                    }}
+                    transition={{ duration: 0.3 }}
+                    className="border-t border-base-300"
+                  >
                     <td className="p-4">
                       <img
                         src={food.image}
@@ -75,17 +165,32 @@ const MyFoods = () => {
                         </Link>
                       </div>
                     </td>
-                  </tr>
+                  </motion.tr>
                 ))}
-              </tbody>
+              </motion.tbody>
             </table>
           </div>
 
           {/* Card view for small screens */}
-          <div className="md:hidden flex flex-col gap-4">
+          <motion.div
+            className="md:hidden flex flex-col gap-4"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: {},
+              visible: {
+                transition: { staggerChildren: 0.05 },
+              },
+            }}
+          >
             {myFoods.map((food) => (
-              <div
+              <motion.div
                 key={food._id}
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.3 }}
                 className="card bg-base-100 shadow-md rounded-box p-4"
               >
                 <div className="flex items-center gap-4">
@@ -111,9 +216,9 @@ const MyFoods = () => {
                     </button>
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </>
       )}
     </div>

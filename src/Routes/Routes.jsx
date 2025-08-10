@@ -16,8 +16,9 @@ import MyOrders from "../Pages/Dashboard/MyOrders";
 import About from "../Pages/About/About";
 import Contact from "../Pages/Contact/Contact";
 import DashboardLayout from "../Layout/DashboardLayout";
-import Profile from "../Components/Profile";
+
 import DashboardHome from "../Pages/Dashboard/DashboardHome";
+import Profile from "../Pages/Dashboard/Profile";
 export const router = createBrowserRouter([
   {
     path: "/",

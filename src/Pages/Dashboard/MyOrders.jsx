@@ -5,6 +5,35 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthContext } from "../../Context/AuthContext";
 import MyOrdersApi from "../../Hook/MyOrdersApi";
+import { motion } from "framer-motion";
+
+// Skeleton Row for Loading State
+const SkeletonRow = () => (
+  <tr className="animate-pulse">
+    <td>
+      <div className="h-4 w-6 bg-base-300 rounded"></div>
+    </td>
+    <td className="flex items-center gap-2">
+      <div className="w-12 h-12 bg-base-300 rounded"></div>
+      <div className="h-4 w-24 bg-base-300 rounded"></div>
+    </td>
+    <td>
+      <div className="h-4 w-12 bg-base-300 rounded"></div>
+    </td>
+    <td>
+      <div className="h-4 w-10 bg-base-300 rounded"></div>
+    </td>
+    <td>
+      <div className="h-4 w-20 bg-base-300 rounded"></div>
+    </td>
+    <td>
+      <div className="h-4 w-28 bg-base-300 rounded"></div>
+    </td>
+    <td>
+      <div className="h-8 w-16 bg-base-300 rounded"></div>
+    </td>
+  </tr>
+);
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
@@ -54,25 +83,18 @@ const MyOrders = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="text-center py-20">
-        <span className="loading loading-spinner text-primary text-3xl"></span>
-      </div>
-    );
-  }
-
   return (
     <div className="container mx-auto px-4 py-10 min-h-screen">
-      <h2 className="text-3xl font-bold mb-8 text-center text-primary">
+      <motion.h2
+        className="text-3xl font-bold mb-8 text-center text-primary"
+        initial={{ opacity: 0, y: -15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
         My Orders
-      </h2>
+      </motion.h2>
 
-      {orders.length === 0 ? (
-        <p className="text-center text-lg">
-          You have not ordered any food yet.
-        </p>
-      ) : (
+      {loading ? (
         <div className="overflow-x-auto">
           <table className="table w-full bg-base-100 shadow-md rounded-lg">
             <thead className="bg-base-200 text-base-content">
@@ -87,8 +109,51 @@ const MyOrders = () => {
               </tr>
             </thead>
             <tbody>
+              {[...Array(4)].map((_, i) => (
+                <SkeletonRow key={i} />
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : orders.length === 0 ? (
+        <motion.p
+          className="text-center text-lg"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          You have not ordered any food yet.
+        </motion.p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="table w-full bg-base-100 shadow-md rounded-lg">
+            <thead className="bg-base-200 text-base-content">
+              <tr>
+                <th>#</th>
+                <th>Food</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Seller</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <motion.tbody
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: {},
+                visible: { transition: { staggerChildren: 0.05 } },
+              }}
+            >
               {orders.map((order, idx) => (
-                <tr key={order._id}>
+                <motion.tr
+                  key={order._id}
+                  variants={{
+                    hidden: { opacity: 0, y: 8 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
                   <td>{idx + 1}</td>
                   <td className="flex items-center gap-2">
                     <img
@@ -110,9 +175,9 @@ const MyOrders = () => {
                       Delete
                     </button>
                   </td>
-                </tr>
+                </motion.tr>
               ))}
-            </tbody>
+            </motion.tbody>
           </table>
         </div>
       )}

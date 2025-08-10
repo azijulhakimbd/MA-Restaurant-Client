@@ -1,14 +1,22 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { toast } from "react-toastify";
 import AddFoodApi from "../../Hook/AddFoodApi";
+import { motion } from "framer-motion";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const AddFood = () => {
   const { user } = useContext(AuthContext);
   const { addFood } = AddFoodApi();
 
+  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
+
     const form = e.target;
     const newFood = {
       name: form.name.value.trim(),
@@ -36,18 +44,49 @@ const AddFood = () => {
     } catch (error) {
       console.error(error);
       toast.error("An error occurred while adding the food item.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
-  return (
-    <div className="max-w-4xl mx-auto mt-10 px-4">
-      <h2 className="text-3xl font-bold text-center mb-6 text-base-content">
-        Add New Food Item
-      </h2>
+  // Simulate loading state for skeleton 
+  if (loading) {
+    return (
+      <div className="max-w-4xl mx-auto mt-10 px-4">
+        <Skeleton height={40} width={300} className="mx-auto mb-6" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-base-100 p-6 rounded-lg shadow-lg">
+          {[...Array(8)].map((_, i) => (
+            <Skeleton key={i} height={40} />
+          ))}
+          <Skeleton height={80} className="md:col-span-2" />
+          <Skeleton height={50} width={150} className="mx-auto" />
+        </div>
+      </div>
+    );
+  }
 
-      <form
+  return (
+    <motion.div
+      className="max-w-4xl mx-auto mt-10 px-4"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+    >
+      <motion.h2
+        className="text-3xl font-bold text-center mb-6 text-base-content"
+        initial={{ scale: 0.9 }}
+        animate={{ scale: 1 }}
+        transition={{ duration: 0.3 }}
+      >
+        Add New Food Item
+      </motion.h2>
+
+      <motion.form
         onSubmit={handleSubmit}
         className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-base-100 p-6 rounded-lg shadow-lg"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
       >
         {/* Food Name */}
         <div>
@@ -136,7 +175,7 @@ const AddFood = () => {
           />
         </div>
 
-        {/* Added By Name (readonly) */}
+        {/* Added By Name */}
         <div>
           <label className="label">
             <span className="label-text">Added By (Name)</span>
@@ -149,7 +188,7 @@ const AddFood = () => {
           />
         </div>
 
-        {/* Added By Email (readonly) */}
+        {/* Added By Email */}
         <div>
           <label className="label">
             <span className="label-text">Added By (Email)</span>
@@ -178,14 +217,20 @@ const AddFood = () => {
           ></textarea>
         </div>
 
-        {/* Submit Button */}
+        {/* Submit */}
         <div className="md:col-span-2 text-center mt-4">
-          <button type="submit" className="btn btn-success px-10">
-            Add Item
-          </button>
+          <motion.button
+            type="submit"
+            className="btn btn-success px-10"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            disabled={submitting}
+          >
+            {submitting ? "Adding..." : "Add Item"}
+          </motion.button>
         </div>
-      </form>
-    </div>
+      </motion.form>
+    </motion.div>
   );
 };
 
