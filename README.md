@@ -3,7 +3,10 @@
 A full-stack restaurant management platform built with the MERN stack. The platform allows customers to explore, search, and purchase foods, while restaurant staff can manage food listings, orders, and more.
 
 ## 🌐 Live Website  
-🔗 [Live Site](https://ma-restaurant.netlify.app)
+🔗 [Live Site](https://ma-restaurant.netlify.app)  
+
+📦 **Client Repository:** [MA-Restaurant-Client](https://github.com/azijulhakimbd/MA-Restaurant-Client)  
+🗄 **Server Repository:** [MA-Restaurant-Server](https://github.com/azijulhakimbd/MA-Restaurant-Server)  
 
 ---
 
@@ -23,7 +26,8 @@ This project aims to provide an efficient and visually appealing restaurant plat
 - **React Router DOM**
 - **Tailwind CSS + DaisyUI**
 - **Firebase Authentication**
-- **Framer Motion**
+- **Framer Motion** (for smooth animations)
+- **react-loading-skeleton** (for elegant loading states)
 - **SweetAlert2**
 - **React Toastify**
 - **yet-another-react-lightbox**
@@ -61,10 +65,10 @@ This project aims to provide an efficient and visually appealing restaurant plat
 - `/food/:id` – Single Food Page  
 
 ### 🔒 Private Routes:
-- `/purchase/:id` – Purchase Food  
-- `/add-food` – Add Food (Only owners)  
-- `/my-foods` – My Foods (Only food creator)  
-- `/my-orders` – My Orders  
+- `/dashboard/purchase/:id` – Purchase Food  
+- `/dashboard/add-food` – Add Food (Only owners)  
+- `/dashboard/my-foods` – My Foods (Only food creator)  
+- `/dashboard/my-orders` – My Orders  
 
 ---
 
@@ -82,6 +86,7 @@ This project aims to provide an efficient and visually appealing restaurant plat
 - 📦 **Fully responsive on all devices**
 - ⚠️ **Restrict purchase if food is out-of-stock**
 - 📊 **Visual and interactive UI with animations**
+- ⏳ **Skeleton loaders for better UX during data fetching**
 
 ---
 
@@ -92,7 +97,7 @@ This project aims to provide an efficient and visually appealing restaurant plat
 - ❌ Prevent buying own food
 - ✅ JWT-based protected routes
 - 🌐 Firebase + Netlify config for secure deployment
-- ⏳ Loading spinners
+- ⏳ Loading spinners & skeleton loaders
 - ✨ Page animations with Framer Motion
 - 🧠 Role-based behavior
 - 📸 Interactive gallery
