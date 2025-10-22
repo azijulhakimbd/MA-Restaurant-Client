@@ -36,7 +36,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar px-5 lg:px-15 sticky top-0 z-50 bg-base-100/70 backdrop-blur-md shadow-sm">
+    <div className="navbar px-2 lg:px-15 sticky top-0 z-50 bg-base-100/70 backdrop-blur-md shadow-sm">
       <div className="navbar-start">
         {/* Mobile dropdown toggle */}
         <div className="dropdown">
@@ -86,7 +86,7 @@ const Navbar = () => {
         >
           <img
             src="https://i.postimg.cc/3NbX17Vz/logo-restaurant.png"
-            className="w-20 lg:w-28 rounded-2xl lg:rounded-3xl bg-yellow-300"
+            className="w-18 lg:w-28 rounded-2xl lg:rounded-3xl bg-yellow-300"
             alt="MA Restaurant"
           />
         </Link>

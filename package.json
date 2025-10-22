@@ -24,6 +24,7 @@
     "react-router": "^7.6.2",
     "react-simple-typewriter": "^5.0.1",
     "react-toastify": "^11.0.5",
+    "recharts": "^3.3.0",
     "sweetalert2": "^11.22.0",
     "tailwindcss": "^4.1.8",
     "yet-another-react-lightbox": "^3.23.2"
